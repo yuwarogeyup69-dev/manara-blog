@@ -53,19 +53,23 @@
         .nav-links {
             list-style: none;
             display: flex;
-            gap: 1.2rem;
+            gap: 1rem;
             flex-wrap: wrap;
         }
 
-        .nav-links a {
+        .nav-links button {
+            background: none;
+            border: none;
             color: var(--white);
             text-decoration: none;
             font-weight: 600;
+            cursor: pointer;
             transition: color 0.3s;
             font-size: 0.95rem;
+            font-family: 'Cairo', sans-serif;
         }
 
-        .nav-links a:hover {
+        .nav-links button:hover, .nav-links button.active {
             color: var(--secondary);
         }
 
@@ -74,19 +78,19 @@
             background: linear-gradient(rgba(15, 56, 43, 0.85), rgba(15, 56, 43, 0.85)), url('https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80') center/cover;
             color: var(--white);
             text-align: center;
-            padding: 5rem 1rem;
+            padding: 4rem 1rem;
             border-bottom: 5px solid var(--secondary);
         }
 
         header h1 {
             font-family: 'Amiri', serif;
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
             color: var(--white);
         }
 
         header p {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             max-width: 600px;
             margin: 0 auto;
             color: #dcd6cd;
@@ -95,7 +99,7 @@
         /* الحاوية الرئيسية */
         .container {
             max-width: 1200px;
-            margin: 3rem auto;
+            margin: 2.5rem auto;
             padding: 0 1.5rem;
             display: grid;
             grid-template-columns: 2.2fr 1fr;
@@ -107,15 +111,19 @@
                 grid-template-columns: 1fr;
             }
             .nav-links {
-                display: none;
+                display: none; /* إخفاء القائمة في الموبايل واكتفاء بالشريط الجانبي المنظم */
             }
         }
 
-        /* محتوى المقالات والفقرات */
-        main {
-            display: flex;
+        /* نظام إخفاء وإظهار الأقسام (Tabs) */
+        .content-section {
+            display: none; /* مخفي افتراضياً */
             flex-direction: column;
             gap: 2rem;
+        }
+
+        .content-section.active {
+            display: flex; /* يظهر فقط القسم المختار */
         }
 
         .card {
@@ -123,12 +131,7 @@
             padding: 2.5rem;
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
             border-right: 6px solid var(--secondary);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
         }
 
         .section-tag {
@@ -189,10 +192,10 @@
             padding-top: 0.8rem;
         }
 
-        /* تصميم شبكة أسماء الله الحسنى */
+        /* شبكة أسماء الله الحسنى */
         .asma-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 1rem;
             margin-top: 1.5rem;
         }
@@ -203,25 +206,18 @@
             border-radius: 8px;
             padding: 1rem;
             text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .asma-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            border-color: var(--secondary);
         }
 
         .asma-name {
             font-family: 'Amiri', serif;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--primary);
             font-weight: bold;
             margin-bottom: 0.3rem;
         }
 
         .asma-meaning {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #555;
         }
 
@@ -233,6 +229,8 @@
             text-decoration: none;
             border-radius: 6px;
             font-weight: 600;
+            cursor: pointer;
+            border: none;
             transition: background 0.3s;
         }
 
@@ -241,11 +239,11 @@
             color: var(--primary);
         }
 
-        /* الشريط الجانبي */
+        /* الشريط الجانبي (الأزرار المنظمة لكل قسم) */
         aside {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .widget {
@@ -264,6 +262,35 @@
             padding-bottom: 0.5rem;
         }
 
+        /* أزرار القائمة الجانبية المنظمة */
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .sidebar-btn {
+            background-color: #f4f6f5;
+            color: var(--primary);
+            border: 1px solid #dcdcdc;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            text-align: right;
+            font-weight: 600;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .sidebar-btn:hover, .sidebar-btn.active {
+            background-color: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
         /* تنسيق أزرار التواصل الاجتماعي */
         .social-links {
             display: flex;
@@ -280,22 +307,13 @@
             text-decoration: none;
             color: white;
             font-weight: 600;
-            transition: opacity 0.3s, transform 0.2s;
-        }
-
-        .social-btn:hover {
-            opacity: 0.9;
-            transform: scale(1.02);
+            transition: opacity 0.3s;
         }
 
         .whatsapp { background-color: #25D366; }
         .facebook { background-color: #1877F2; }
         .instagram { background: linear-gradient(45deg, #405DE6, #833AB4, #E1306C, #FCAF45); }
         .email { background-color: #EA4335; }
-
-        .social-btn i {
-            font-size: 1.2rem;
-        }
 
         /* التذييل */
         footer {
@@ -314,102 +332,126 @@
     <nav>
         <div class="logo">منارة اليقين</div>
         <ul class="nav-links">
-            <li><a href="#">الرئيسية</a></li>
-            <li><a href="#hadith-section">حديث اليوم</a></li>
-            <li><a href="#asma-section">أسماء الله الحسنى</a></li>
-            <li><a href="#contact">تواصل معنا</a></li>
+            <li><button onclick="showSection('home')" class="active">الرئيسية</button></li>
+            <li><button onclick="showSection('hadith')">حديث اليوم</button></li>
+            <li><button onclick="showSection('asma')">أسماء الله الحسنى</button></li>
+            <li><button onclick="showSection('sunnah')">السنن النبوية</button></li>
+            <li><button onclick="showSection('about')">عن المدونة</button></li>
+            <li><button onclick="showSection('contact')">تواصل معنا</button></li>
         </ul>
     </nav>
 
     <header>
         <h1>مدونة منارة اليقين</h1>
-        <p>مساحة إيمانية هادئة لإضاءة القلوب بنور القرآن والسنة، وتقديم محتوى إسلامي راسخ وعميق.</p>
+        <p>مساحة إيمانية هادئة لإضاءة القلوب بنور القرآن والسنة</p>
     </header>
 
     <div class="container">
-        <!-- المحتوى الرئيسي -->
+        <!-- المحتوى الرئيسي (الأقسام التي تظهر وتختفي بالضغط) -->
         <main>
-            <!-- قسم حديث اليوم المتجدد تلقائياً -->
-            <article class="card" id="hadith-section">
-                <span class="section-tag">🌟 حديث اليوم (من صحيح البخاري)</span>
-                <h2>دروس نبوية متجددة يومياً</h2>
-                <div class="meta">
-                    <span>📅 مرجع موثوق: صحيح البخاري</span>
-                    <span>✍️ يتحدث تلقائياً كل 24 ساعة</span>
-                </div>
-                
-                <div class="daily-hadith-box">
-                    <div id="hadithText" class="daily-hadith-text">جاري تحميل حديث اليوم...</div>
-                    <div id="hadithExplanation" class="hadith-explanation"><strong>الشرح المبسط:</strong> جاري تحميل الشرح...</div>
-                </div>
+            <!-- 1. قسم الرئيسية -->
+            <div id="home" class="content-section active">
+                <article class="card">
+                    <span class="section-tag">🏠 مرحباً بك</span>
+                    <h2>أهلاً بك في واحة منارة اليقين الإسلامية</h2>
+                    <div class="meta"><span>📅 تحديثات مستمرة</span></div>
+                    <p>تم تصميم هذه المدونة لتكون مرجعاً مبسطاً يجمع الأحاديث الصحيحة، السنن النبوية، وأسماء الله الحسنى لتنير طريقك اليومي. اختر من القائمة الجانبية القسم الذي ترغب في استعراضه بكل سهولة.</p>
+                    <button onclick="showSection('hadith')" class="btn">استعرض حديث اليوم</button>
+                </article>
+            </div>
 
-                <a href="#hadith-section" class="btn" onclick="loadDailyHadith(); return false;">🔄 تحديث الحديث</a>
-            </article>
+            <!-- 2. قسم حديث اليوم -->
+            <div id="hadith" class="content-section">
+                <article class="card">
+                    <span class="section-tag">🌟 حديث اليوم (من صحيح البخاري)</span>
+                    <h2>دروس نبوية متجددة يومياً</h2>
+                    <div class="meta">
+                        <span>📅 المرجع: صحيح البخاري</span>
+                        <span>✍️ يتحدث تلقائياً كل 24 ساعة</span>
+                    </div>
+                    <div class="daily-hadith-box">
+                        <div id="hadithText" class="daily-hadith-text">جاري تحميل حديث اليوم...</div>
+                        <div id="hadithExplanation" class="hadith-explanation"><strong>الشرح المبسط:</strong> جاري التحميل...</div>
+                    </div>
+                    <button class="btn" onclick="loadDailyHadith()">🔄 تحديث الحديث</button>
+                </article>
+            </div>
 
-            <!-- قسم أسماء الله الحسنى الـ 99 مع معانيها -->
-            <article class="card" id="asma-section">
-                <span class="section-tag">✨ أسماء الله الحسنى</span>
-                <h2>معرفة الخلق بخالقهم: أسماء الله الحسنى ومعانيها</h2>
-                <div class="meta">
-                    <span>📚 العدد: 99 اسماً مباركاً</span>
-                    <span>💡 معاني ميسرة</span>
-                </div>
-                <p>قال رسول الله صلى الله عليه وسلم: "إنَّ للهِ تِسعًا وتِسعينَ اسمًا، مائةً إلَّا واحدًا، من أحصاها دخلَ الجنةَ". إليك أسماء الله الحسنى كاملة مع بيان معانيها السامية:</p>
-                
-                <!-- شبكة عرض الأسماء -->
-                <div class="asma-grid" id="asmaContainer">
-                    <!-- سيتم تعبئة الأسماء تلقائياً عبر الجافاسكريبت -->
-                </div>
-            </article>
+            <!-- 3. قسم أسماء الله الحسنى -->
+            <div id="asma" class="content-section">
+                <article class="card">
+                    <span class="section-tag">✨ أسماء الله الحسنى</span>
+                    <h2>معرفة الخلق بخالقهم: أسماء الله الـ 99 ومعانيها</h2>
+                    <div class="meta"><span>📚 معاني ميسرة ودقيقة</span></div>
+                    <p>قال رسول الله صلى الله عليه وسلم: "إنَّ للهِ تِسعًا وتِسعينَ اسمًا، مائةً إلَّا واحدًا، من أحصاها دخلَ الجنةَ".</p>
+                    <div class="asma-grid" id="asmaContainer">
+                        <!-- تُعبأ تلقائياً -->
+                    </div>
+                </article>
+            </div>
 
-            <!-- فقرة السنن النبوية -->
-            <article class="card">
-                <span class="section-tag">⭐ قسم السنن النبوية</span>
-                <h2>سنن مهجورة: احيِ سنّة النبي صلى الله عليه وسلم في يومك وليلتك</h2>
-                <div class="meta">
-                    <span>📅 7 أكتوبر 2026</span>
-                    <span>✍️ بقلم: صاحب المدونة</span>
-                </div>
-                <p>من السنن العظيمة التي غفل عنها الكثيرون في زحمة الحياة: النوم على طهارة، ونفض الفراش قبل النوم ثلاث مرات، وصلاة ركعتين بعد الوضوء... احرص على إحيائها لتنال الأجر العظيم.</p>
-                <a href="#" class="btn">قراءة المزيد</a>
-            </article>
+            <!-- 4. قسم السنن النبوية -->
+            <div id="sunnah" class="content-section">
+                <article class="card">
+                    <span class="section-tag">⭐ قسم السنن النبوية</span>
+                    <h2>سنن مهجورة: احيِ سنّة النبي صلى الله عليه وسلم</h2>
+                    <div class="meta"><span>✍️ هدي نبوي مبارك</span></div>
+                    <p>من السنن العظيمة التي غفل عنها الكثيرون: النوم على طهارة، نفض الفراش قبل النوم ثلاث مرات، وصلاة ركعتين بعد الوضوء... احرص على إحيائها لتنال الأجر العظيم وتقتدي بالحبيب المصطفى صلى الله عليه وسلم.</p>
+                </article>
+            </div>
+
+            <!-- 5. قسم عن المدونة -->
+            <div id="about" class="content-section">
+                <article class="card">
+                    <span class="section-tag">📖 عن المدونة</span>
+                    <h2>رسالتنا وأهدافنا</h2>
+                    <div class="meta"><span>✍️ إشراف صاحب المدونة</span></div>
+                    <p>هذه المدونة هي مساحة شخصية خالصة لوجه الله تعالى، تهدف إلى نشر العلم الشرعي المبسط، الأحاديث الصحيحة الثابتة عن النبي صلى الله عليه وسلم، وتقريب معاني أسماء الله الحسنى لقلوب المسلمين بأسلوب سهل ومريح.</p>
+                </article>
+            </div>
+
+            <!-- 6. قسم تواصل معنا -->
+            <div id="contact" class="content-section">
+                <article class="card">
+                    <span class="section-tag">📞 تواصل معنا</span>
+                    <h2>يسعدنا تواصلك معنا عبر القنوات التالية</h2>
+                    <div class="meta"><span>🤝 قنوات الاتصال المباشر</span></div>
+                    <p>للاستفسارات أو مشاركة الاقتراحات، يمكنك التواصل معنا مباشرة من خلال الأزرار أدناه:</p>
+                    <div class="social-links" style="margin-top: 1.5rem;">
+                        <a href="https://wa.me/+249993775047" target="_blank" class="social-btn whatsapp">
+                            <i class="fab fa-whatsapp"></i> مراسلة عبر الواتساب
+                        </a>
+                        <a href="https://www.facebook.com/mohammed.abdallah.425685" target="_blank" class="social-btn facebook">
+                            <i class="fab fa-facebook-f"></i> تابعني على فيسبوك
+                        </a>
+                        <a href="https://www.instagram.com/mohammed44133?cplk=ampld3U4bnhlZ29s" target="_blank" class="social-btn instagram">
+                            <i class="fab fa-instagram"></i> تابعني على إنستغرام
+                        </a>
+                        <a href="mailto:mohammed425685@gmail.com" class="social-btn email">
+                            <i class="fas fa-envelope"></i> راسلني عبر البريد الإلكتروني
+                        </a>
+                    </div>
+                </article>
+            </div>
         </main>
 
-        <!-- الشريط الجانبي -->
+        <!-- الشريط الجانبي (أزرار منظمة للتحكم الكامل بكل قسم على حدة) -->
         <aside>
             <div class="widget">
-                <h3>عن المدونة</h3>
-                <p>مرحباً بك أخي الزائر. هذه المدونة هي واحة شخصية لنشر القيم الإسلامية السمحة، الأحاديث الصحيحة من البخاري، وأسماء الله الحسنى.</p>
+                <h3>أقسام المدونة</h3>
+                <div class="sidebar-menu">
+                    <button onclick="showSection('home')" class="sidebar-btn active" id="btn-home"><i class="fas fa-home"></i> الرئيسية</button>
+                    <button onclick="showSection('hadith')" class="sidebar-btn" id="btn-hadith"><i class="fas fa-book-open"></i> حديث اليوم</button>
+                    <button onclick="showSection('asma')" class="sidebar-btn" id="btn-asma"><i class="fas fa-star"></i> أسماء الله الحسنى</button>
+                    <button onclick="showSection('sunnah')" class="sidebar-btn" id="btn-sunnah"><i class="fas fa-sun"></i> السنن النبوية</button>
+                    <button onclick="showSection('about')" class="sidebar-btn" id="btn-about"><i class="fas fa-info-circle"></i> عن المدونة</button>
+                    <button onclick="showSection('contact')" class="sidebar-btn" id="btn-contact"><i class="fas fa-paper-plane"></i> تواصل معنا</button>
+                </div>
             </div>
 
             <div class="widget">
-                <h3>روابط سريعة</h3>
-                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; padding-right: 0;">
-                    <li><a href="#hadith-section" style="color: var(--primary); text-decoration: none; font-weight: bold;">• حديث اليوم المتجدد</a></li>
-                    <li><a href="#asma-section" style="color: var(--primary); text-decoration: none; font-weight: bold;">• أسماء الله الحسنى الـ 99</a></li>
-                </ul>
-            </div>
-
-            <!-- قسم تواصل معنا -->
-            <div class="widget" id="contact">
-                <h3>تواصل معي</h3>
-                <div class="social-links">
-                    <a href="https://wa.me/+249993775047" target="_blank" class="social-btn whatsapp">
-                        <i class="fab fa-whatsapp"></i> مراسلة واتساب
-                    </a>
-                    
-                    <a href="https://www.facebook.com/mohammed.abdallah.425685" target="_blank" class="social-btn facebook">
-                        <i class="fab fa-facebook-f"></i> تابعني على فيسبوك
-                    </a>
-                    
-                    <a href="https://www.instagram.com/mohammed44133?cplk=ampld3U4bnhlZ29s" target="_blank" class="social-btn instagram">
-                        <i class="fab fa-instagram"></i> تابعني على إنستغرام
-                    </a>
-                    
-                    <a href="mailto:mohammed425685@gmail.com" class="social-btn email">
-                        <i class="fas fa-envelope"></i> راسلني عبر البريد
-                    </a>
-                </div>
+                <h3>حكمة إيمانية</h3>
+                <p style="font-style: italic; color: #555; font-size: 0.95rem;">"من عَمِلَ صالِحاً مِن ذَكَرٍ أو أُنثى وهو مؤمن فلنحيينه حياة طيبة"</p>
             </div>
         </aside>
     </div>
@@ -418,8 +460,28 @@
         <p>جميع الحقوق محفوظة © 2026 - مدونة منارة اليقين الإسلامية</p>
     </footer>
 
-    <!-- البرمجة النصية لحديث اليوم وأسماء الله الحسنى -->
+    <!-- سكربت جافاسكريبت للتحكم في إظهار وإخفاء الأقسام بالضغط -->
     <script>
+        function showSection(sectionId) {
+            // إخفاء كل الأقسام
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(sec => sec.classList.remove('active'));
+
+            // إظهار القسم المطلوب فقط
+            document.getElementById(sectionId).classList.add('active');
+
+            // تحديث تصميم الأزرار النشطة في الشريط الجانبي والقائمة
+            const sidebarBtns = document.querySelectorAll('.sidebar-btn');
+            sidebarBtns.forEach(btn => btn.classList.remove('active'));
+            
+            const activeBtn = document.getElementById('btn-' + sectionId);
+            if(activeBtn) activeBtn.classList.add('active');
+
+            // التمرير لأعلى الصفحة بسلاسة عند الضغط
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // بيانات حديث اليوم من صحيح البخاري
         const bukhariHadiths = [
             {
                 text: "«إنَّما الأعمالُ بالنِّيّاتِ، وإنَّما لكلِّ امرئٍ ما نَوَى»",
@@ -427,7 +489,7 @@
             },
             {
                 text: "«مَن كان يؤمنُ باللهِ واليومِ الآخرِ فليقلْ خيراً أو ليصمتْ»",
-                explanation: "الشرح المبسط: يحثنا النبي صلى الله عليه وسلم على حفظ اللسان، وأنه إما أن يتكلم الإنسان بخير أو يسمت."
+                explanation: "الشرح المبسط: يحثنا النبي صلى الله عليه وسلم على حفظ اللسان، وأنه إما أن يتكلم الإنسان بخير أو يسكت."
             },
             {
                 text: "«لا يؤمنُ أحدُكم حتى يحبَّ لأخيه ما يحبُّ لنفسه»",
@@ -440,10 +502,6 @@
             {
                 text: "«خيارُكم مَن تعلمَ القرآنَ وعلمهُ»",
                 explanation: "الشرح المبسط: يرفع النبي صلى الله عليه وسلم من شأن أهل القرآن المتعلمين والمعلمين لهم."
-            },
-            {
-                text: "«اتَّقِ اللهَ حيثما كنتَ، وأتْبِعِ السِّيِّئةَ الحسنةَ تَمْحُها، وخالِقِ النَّاسَ بخُلُقٍ حسنٍ»",
-                explanation: "الشرح المبسط: وصية جامعة تتضمن تقوى الله، ومحو الخطايا بالحسنات، ومعاملة الناس بأحسن الأخلاق."
             }
         ];
 
@@ -456,114 +514,112 @@
             document.getElementById("hadithExplanation").innerHTML = "<strong>الشرح المبسط:</strong> " + selected.explanation;
         }
 
-        // قائمة أسماء الله الحسنى الـ 99 مع معانيها المبسطة
+        // قائمة أسماء الله الحسنى الـ 99
         const asmaAlHusna = [
-            {name: "الله", meaning: "الاسم الأعظم الجامع لجميع معاني الألوهية."},
-            {name: "الرحمن", meaning: "الواسع الرحمة الذي وسعت رحمته كل شيء."},
-            {name: "الرحيم", meaning: "الموصل رحمانيته لمن يشاء من عباده."},
-            {name: "الملك", meaning: "المتصرف في ملكه بلا زوال ولا منزع."},
+            {name: "الله", meaning: "الاسم الأعظم الجامع لمعاني الألوهية."},
+            {name: "الرحمن", meaning: "الواسع الرحمة لكل خلقه."},
+            {name: "الرحيم", meaning: "الموصل رحمانيته للمؤمنين."},
+            {name: "الملك", meaning: "المتصرف الحقيقي في ملكه."},
             {name: "القدوس", meaning: "المنزه عن كل نقص وعيب."},
-            {name: "السلام", meaning: "الذي سلم من كل عفة وآفة."},
-            {name: "المؤمن", meaning: "الذي أمن عباده من ظلمه ومكر خلقه."},
-            {name: "المهيمن", meaning: "الرقيب الحافظ لأعمال عباده."},
-            {name: "العزيز", meaning: "الغالب القاهر الذي لا يُغلب."},
+            {name: "السلام", meaning: "السالم من كل آفة."},
+            {name: "المؤمن", meaning: "المصدق لرسله والمؤمن عباده."},
+            {name: "المهيمن", meaning: "الرقيب الحافظ لخلقه."},
+            {name: "العزيز", meaning: "الغالب الذي لا يُغلب."},
             {name: "الجبار", meaning: "الذي يجبر الكسير ويقهر العتاة."},
             {name: "المتكبر", meaning: "المتعالي عن صفات الخلق."},
-            {name: "الخالق", meaning: "المقدر للأشياء على غير مثال سابق."},
-            {name: "الباري", meaning: "المبرز للأشياء من العدم إلى الوجود."},
-            {name: "المصور", meaning: "المعطي لكل خلق صوره وهيئته."},
-            {name: "الغفار", meaning: "الساتر لذنوب عباده مراراً وتكراراً."},
-            {name: "القهار", meaning: "الغالب لكل شيء خاضع لقدرته."},
+            {name: "الخالق", meaning: "المقدر وموجد الأشياء."},
+            {name: "الباري", meaning: "المبرز للأشياء من العدم."},
+            {name: "المصور", meaning: "المعطي لكل خلق صوره."},
+            {name: "الغفار", meaning: "الساتر لذنوب عباده مراراً."},
+            {name: "القهار", meaning: "الغالب لكل شيء خاضع له."},
             {name: "الوهاب", meaning: "المعطي للعطايا بلا عوض."},
-            {name: "الرزاق", meaning: "المقوت لخلقه ومقدر أرزاقهم."},
-            {name: "الفتاح", meaning: "الذي يفتح أبواب الرحمة والرزق."},
-            {name: "العليم", meaning: "المحيط بكل شيء علماً ظاهراً وباطناً."},
-            {name: "القابض", meaning: "المقيد لرزقه وفضله عمن يشاء حكمةً."},
-            {name: "الباسط", meaning: "الموسع لرزقه وفضله على من يشاء."},
-            {name: "الخافض", meaning: "المسفل للظالمين والمتكبرين."},
-            {name: "الرافع", meaning: "المعطي للرفعة لأوليائه والمؤمنين."},
+            {name: "الرزاق", meaning: "المقوت لخلقه وأرزاقهم."},
+            {name: "الفتاح", meaning: "الفتح والمهيمن برحمته."},
+            {name: "العليم", meaning: "المحيط بكل شيء علماً."},
+            {name: "القابض", meaning: "المقيد لرزقه وفضله حكمةً."},
+            {name: "الباسط", meaning: "الموسع لرزقه وفضله."},
+            {name: "الخافض", meaning: "المسفل للظالمين."},
+            {name: "الرافع", meaning: "المعطي للرفعة لأوليائه."},
             {name: "المعز", meaning: "المتفضل بالعزة لمن أطاعه."},
-            {name: "المذل", meaning: "الذي يذل من عصاه وتمرد عليه."},
-            {name: "السميع", meaning: "المحيط سمعُه بكل الأصوات الظاهرة والخفية."},
-            {name: "البصير", meaning: "المبصر لكل دقائق الأشياء وخفاياها."},
-            {name: "الحكم", meaning: "الفاصل بين الحق والباطل بالعدل المطلق."},
-            {name: "العدل", meaning: "المنزه عن الظلم في أقواله وأفعاله."},
-            {name: "اللَّطيف", meaning: "الرفيق بعباده المحسن إليهم من حيث لا يحتسبون."},
-            {name: "الخبير", meaning: "العالم ببواطن الأمور وكنهها."},
-            {name: "الحليم", meaning: "الذي لا يعجل بالعقوبة على العصاة."},
-            {name: "العظيم", meaning: "الذي تعظم القلوب جلاله وكبرياءه."},
-            {name: "الغفور", meaning: "الساتر لذنوب عباده العافي عنها."},
-            {name: "الشكور", meaning: "المثيب على القليل من العمل بالجزيل من الأجر."},
-            {name: "العلي", meaning: "المتعالي بذاته وصفاته عن كل نقص."},
-            {name: "الكبير", meaning: "المتعظم في ذاته وصفاته عن الشبيه."},
-            {name: "الحفيظ", meaning: "المانع لكل ما يضر خلقه وحافظهم."},
-            {name: "المقيت", meaning: "الموصل للأقوات والأرزاق لأجساد خلقه."},
-            {name: "الحسيب", meaning: "الكافي لعباده والمعطي لهم ما يكفيهم."},
-            {name: "الجليل",meaning: "المتصف بصفات الجلال والعظمة."},
-            {name: "الكريم", meaning: "الكثير الخير العفو عند المقدرة."},
-            {name: "الرقيب", meaning: "المطلع على السرائر وحركات الجوارح."},
-            {name: "المجيب", meaning: "الذي يجيب دعوة الداعي إذا دعاه."},
-            {name: "الواسع", meaning: "الذي وسع علمه وفضله كل شيء."},
-            {name: "الحكيم", meaning: "الذي لا يخرج شيء عن حكمته وتدبيره."},
-            {name: "الودود", meaning: "المحب لعباده المؤمنين والمحبوب منهم."},
-            {name: "المجيد", meaning: "البالغ الغاية في المجد والعظمة."},
-            {name: "الباعث", meaning: "المحيي للموتى يوم القيامة."},
-            {name: "الشهيد", meaning: "الحاضر الذي لا يغيب عنه شيء."},
-            {name: "الحق", meaning: "الثابت الوجود الذي لا شك فيه."},
-            {name: "الوكيل", meaning: "المكفول به تدبير أمور الخلق."},
-            {name: "القوي", meaning: "ذو القدرة التامة التي لا يطالها عجز."},
-            {name: "المتين", meaning: "الشديد القوة الذي لا ينفد كيده."},
-            {name: "الولي", meaning: "الناصر والمعين لأوليائه المؤمنين."},
+            {name: "المذل", meaning: "الذي يذل من عصاه."},
+            {name: "السميع", meaning: "المحيط سمعُه بكل الأصوات."},
+            {name: "البصير", meaning: "المبصر لدقائق الأشياء."},
+            {name: "الحكم", meaning: "الفاصل بالعدل المطلق."},
+            {name: "العدل", meaning: "المنزه عن الظلم مطلقاً."},
+            {name: "اللَّطيف", meaning: "الرفيق بعباده المحسن إليهم."},
+            {name: "الخبير", meaning: "العالم ببواطن الأمور."},
+            {name: "الحليم", meaning: "الذي لا يعجل بالعقوبة."},
+            {name: "العظيم", meaning: "الذي تعظم القلوب جلاله."},
+            {name: "الغفور", meaning: "الساتر لذنوب عباده."},
+            {name: "الشكور", meaning: "المثيب على القليل بالجزيل."},
+            {name: "العلي", meaning: "المتعالي بذاته وصفاته."},
+            {name: "الكبير", meaning: "المتعظم في ذاته."},
+            {name: "الحفيظ", meaning: "الحافظ لعباده ومالكهم."},
+            {name: "المقيت", meaning: "الموصل للأقوات للأجساد."},
+            {name: "الحسيب", meaning: "الكافي لعباده."},
+            {name: "الجليل", meaning: "المتصف بصفات الجلال."},
+            {name: "الكريم", meaning: "الكثير الخير العفو."},
+            {name: "الرقيب", meaning: "المطلع على السرائر."},
+            {name: "المجيب", meaning: "مجيب الدعوات."},
+            {name: "الواسع", meaning: "الذي وسع كل شيء."},
+            {name: "الحكيم", meaning: "الذي لا يخرج شيء عن حكمته."},
+            {name: "الودود", meaning: "المحب لعباده والمحبوب."},
+            {name: "المجيد", meaning: "البالغ الغاية في العظمة."},
+            {name: "الباعث", meaning: "المحيي للموتى."},
+            {name: "الشهيد", meaning: "الحاضر الذي لا يغيب."},
+            {name: "الحق", meaning: "الثابت الوجود."},
+            {name: "الوكيل", meaning: "المكفول به تدبير الأمور."},
+            {name: "القوي", meaning: "ذو القدرة التامة."},
+            {name: "المتين", meaning: "الشديد القوة."},
+            {name: "الولي", meaning: "الناصر لأوليائه."},
             {name: "الحميد", meaning: "المستحق للحمد والثناء."},
-            {name: "المحصي", meaning: "الذي أحاط بكل شيء عدداً وإحصاءً."},
+            {name: "المحصي", meaning: "المحيط بكل شيء عدداً."},
             {name: "المبدئ", meaning: "المنشئ للأشياء ابتداءً."},
             {name: "المعيد", meaning: "المعيد للخلق بعد فنائهم."},
-            {name: "المحيي", meaning: "الواهب للحياة والأرواح."},
-            {name: "المميت", meaning: "الذي يقبض الأرواح مقدراً للفناء."},
-            {name: "الحي", meaning: "الباقي بلا زوال المتصف بالحياة الدائمة."},
-            {name: "القيوم", meaning: "القائم بنفسه المقيم لغيره تدبيراً وحفظاً."},
-            {name: "الواجد", meaning: "الغني الذي لا يفتقر لشيء وغير العاجز."},
-            {name: "الماجد", meaning: "الكريم الواسع المجد والفضل."},
-            {name: "الواحد", meaning: "الفرد الذي لا شريك له في ذاته وصفاته."},
-            {name: "الصمد", meaning: "السيّد المقصود في الحوائج الدائم."},
-            {name: "القادر", meaning: "الذي يقدر على كل شيء لا يعجزه أمر."},
-            {name: "المقتدر", meaning: "تام القدرة والغلبة على الأمور."},
-            {name: "المقدم", meaning: "الذي يرفع ويقدم من يشاء بحكمته."},
-            {name: "المؤخر", meaning: "الذي يؤخر ويؤجل من يشاء بحكمته."},
+            {name: "المحيي", meaning: "الواهب للحياة."},
+            {name: "المميت", meaning: "القابض للأرواح ومقدر الفناء."},
+            {name: "الحي", meaning: "الباقي بلا زوال."},
+            {name: "القيوم", meaning: "القائم بنفسه المقيم لغيره."},
+            {name: "الواجد", meaning: "الغني غير العاجز."},
+            {name: "الماجد", meaning: "الكريم الواسع الفضل."},
+            {name: "الواحد", meaning: "الفرد بلا شريك."},
+            {name: "الصمد", meaning: "المقصود في الحوائج."},
+            {name: "القادر", meaning: "الذي يقدر على كل شيء."},
+            {name: "المقتدر", meaning: "تام القدرة والغلبة."},
+            {name: "المقدم", meaning: "الذي يرفع من يشاء."},
+            {name: "المؤخر", meaning: "الذي يؤخر من يشاء."},
             {name: "الأول", meaning: "الذي ليس قبله شيء."},
             {name: "الآخر", meaning: "الذي ليس بعده شيء."},
-            {name: "الظاهر", meaning: "العالي على كل شيء بآياته ودلائله."},
-            {name: "الباطن", meaning: "المحيط ببواطن الأشياء والخافي عن الأبصار."},
-            {name: "الوالي", meaning: "المالك والمتصرف المدبر للأمور."},
-            {name: "المتعالي", meaning: "المنزه عن صفات المخلوقين."},
-            {name: "البر", meaning: "الكثير الإحسان واللطف بعباده."},
-            {name: "التواب", meaning: "الذي يقبل التوبة عن عباده ويعفو عنهم."},
-            {name: "المنتقم", meaning: "المعاقب للظالمين المجرمين."},
-            {name: "العفو", meaning: "المحاو والمسامح لسيئات عباده."},
-            {name: "الرؤوف", meaning: "الشديد الرحمة واللطف بعباده."},
-            {name: "مالك الملك", meaning: "المتصرف بملكه كيف يشاء."},
-            {name: "ذو الجلال والإكرام", meaning: "صاحب العظمة والكبرياء والإفضال."},
-            {name: "المقسط", meaning: "العادل الذي يأخذ الحق للمظلوم."},
-            {name: "الجامع", meaning: "الذي يجمع الخلائق ليوم لا ريب فيه."},
-            {name: "الغني", meaning: "المتصف بالغنى التامة عن خلقه."},
-            {name: "المغني", meaning: "الذي يغني من يشاء من عباده."},
-            {name: "المانع", meaning: "الذي يمنع الضرر عن عباده حكمةً."},
-            {name: "الضار", meaning: "المقدر للضر بحكمته لحكم بالغة."},
-            {name: "النافع", meaning: "المقدر للخير والنفع لخلقه."},
-            {name: "النور", meaning: "المنور للسموات والأرض وهادي أهلها."},
-            {name: "الهادي", meaning: "المرشد لعباده لطريق الحق والصواب."},
-            {name: "البديع", meaning: "المبدع والمخترع للكون على غير مثال."},
-            {name: "الباقي", meaning: "الدائم الذي لا يفنى ولا يتغير."},
-            {name: "الوارث", meaning: "الباقي بعد فناء الخلق أجمعين."},
-            {name: "الرشيد", meaning: "المرشد للخلق إلى مصالحهم."},
-            {name: "الصبور", meaning: "الذي لا يعاجل العصاة بالعقوبة بل يمهلهم."}
+            {name: "الظاهر", meaning: "العالي بآياته ودلائله."},
+            {name: "الباطن", meaning: "المحيط ببواطن الأشياء."},
+            {name: "الوالي", meaning: "المدبر للأمور."},
+            {name: "المتعالي", meaning: "المنزه عن المخلوقين."},
+            {name: "البر", meaning: "الكثير الإحسان واللطف."},
+            {name: "التواب", meaning: "قابل التوبة."},
+            {name: "المنتقم", meaning: "المعاقب للظالمين."},
+            {name: "العفو", meaning: "المسامح لسيئات عباده."},
+            {name: "الرؤوف", meaning: "الشديد الرحمة."},
+            {name: "مالك الملك", meaning: "المتصرف بملكه."},
+            {name: "ذو الجلال والإكرام", meaning: "صاحب العظمة والإفضال."},
+            {name: "المقسط", meaning: "العادل المنصف."},
+            {name: "الجامع", meaning: "جامع الخلائق ليوم القيامة."},
+            {name: "الغني", meaning: "المتصف بالغنى التام."},
+            {name: "المغني", meaning: "المغني لمن يشاء."},
+            {name: "المانع", meaning: "المانع للضر حكمةً."},
+            {name: "الضار", meaning: "المقدر للضر لحكم بالغة."},
+            {name: "النافع", meaning: "المقدر للخير والنفع."},
+            {name: "النور", meaning: "المنور للسموات والأرض."},
+            {name: "الهادي", meaning: "المرشد لطريق الحق."},
+            {name: "البديع", meaning: "مبدع الكون على غير مثال."},
+            {name: "الباقي", meaning: "الدائم الذي لا يفنى."},
+            {name: "الوارث", meaning: "الباقي بعد فناء الخلق."},
+            {name: "الرشيد", meaning: "المرشد لمصالح العباد."},
+            {name: "الصبور", meaning: "الذي يمهل ولا يعاجل بالعقوبة."}
         ];
 
-        // تعبئة أسماء الله الحسنى في الموقع تلقائياً
         function loadAsmaAlHusna() {
             const container = document.getElementById("asmaContainer");
             let htmlContent = "";
-            
             asmaAlHusna.forEach((item, index) => {
                 htmlContent += `
                     <div class="asma-item">
@@ -572,11 +628,10 @@
                     </div>
                 `;
             });
-            
             container.innerHTML = htmlContent;
         }
 
-        // تشغيل الدوال فور تحميل الصفحة
+        // تشغيل الدوال عند فتح الموقع
         window.onload = function() {
             loadDailyHadith();
             loadAsmaAlHusna();
