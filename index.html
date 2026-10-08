@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منارة اليقين | مدونة إسلامية معاصرة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0F382B;       /* أخضر غامق ملكي */
+            --secondary: #C5A059;     /* ذهبي راقٍ */
+            --accent: #EFECE6;        /* خلفية ناعمة */
+            --text-main: #2C3E50;     /* لون النصوص الأساسي */
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--accent);
+            color: var(--text-main);
+            line-height: 1.9;
+        }
+
+        /* شريط التنقل */
+        nav {
+            background-color: var(--primary);
+            color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        /* رأس الصفحة (الهيدر) */
+        header {
+            background: linear-gradient(rgba(15, 56, 43, 0.85), rgba(15, 56, 43, 0.85)), url('https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80') center/cover;
+            color: var(--white);
+            text-align: center;
+            padding: 5rem 1rem;
+            border-bottom: 5px solid var(--secondary);
+        }
+
+        header h1 {
+            font-family: 'Amiri', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        header p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #dcd6cd;
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 2.2fr 1fr;
+            gap: 2.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* المقالات */
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            border-right: 6px solid var(--secondary);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            font-family: 'Amiri', serif;
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .meta {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 1.2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 0.6rem 1.5rem;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary);
+            color: var(--primary);
+        }
+
+        /* الشريط الجانبي */
+        aside {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .widget {
+            background-color: var(--white);
+            padding: 1.8rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .widget h3 {
+            font-family: 'Amiri', serif;
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 0.5rem;
+        }
+
+        .hadith-box {
+            background-color: #fcf9f2;
+            border: 1px dashed var(--secondary);
+            padding: 1rem;
+            border-radius: 8px;
+            font-style: italic;
+            color: #444;
+        }
+
+        /* التذييل */
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            border-top: 4px solid var(--secondary);
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">منارة اليقين</div>
+        <ul class="nav-links">
+            <li><a href="#">الرئيسية</a></li>
+            <li><a href="#">مقالات إيمانية</a></li>
+            <li><a href="#">السيرة العطرة</a></li>
+            <li><a href="#">تأملات قرآنية</a></li>
+            <li><a href="#">اتصل بنا</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>مدونة منارة اليقين</h1>
+        <p>مساحة إيمانية هادئة لإضاءة القلوب بنور القرآن والسنة، وتقديم محتوى إسلامي راسخ وعميق.</p>
+    </header>
+
+    <div class="container">
+        <!-- المحتوى الرئيسي للمقالات -->
+        <main>
+            <article class="card">
+                <h2>أثر الذكر الحكيم في طمأنينة القلب وسط صخب الحياة</h2>
+                <div class="meta">
+                    <span>📅 9 أكتوبر 2026</span>
+                    <span>✍️ بقلم: صاحب المدونة</span>
+                </div>
+                <p>في عالم تسارعت فيه وتيرة الحياة وتكاثرت الضغوط النفسية والمادية، يغفل الكثيرون عن الملاذ الآمن والكنز العظيم الذي أودعه الله سبحانه وتعالى في عبادة الذكر. فالقلوب لا تسكن بجمع الأموال ولا بتحقيق الشهرة، بل ترتاح حين تستشعر معية الخالق...</p>
+                <a href="#" class="btn">قراءة المقال كاملاً</a>
+            </article>
+
+            <article class="card">
+                <h2>دروس مستفادة من هجرة المصطفى صلى الله عليه وسلم</h2>
+                <div class="meta">
+                    <span>📅 2 أكتوبر 2026</span>
+                    <span>✍️ بقلم: صاحب المدونة</span>
+                </div>
+                <p>لم تكن هجرة النبي محمد صلى الله عليه وسلم مجرد انتقال جغرافي من مكة إلى المدينة، بل كانت محطة تربوية متكاملة تُظهر أهمية التخطيط المحكم، التوكل الصادق على الله، والأخوة الإيمانية التي تأسست عليها أركان المجتمع المسلم الأول...</p>
+                <a href="#" class="btn">قراءة المقال كاملاً</a>
+            </article>
+        </main>
+
+        <!-- الشريط الجانبي -->
+        <aside>
+            <div class="widget">
+                <h3>عن المدونة</h3>
+                <p>مرحباً بك أخي الزارئ. هذه المدونة هي واحة شخصية لنشر القيم الإسلامية السمحة، الأحاديث الصحيحة، والخواطر الإيمانية الهادفة.</p>
+            </div>
+
+            <div class="widget">
+                <h3>حديث الشريف</h3>
+                <div class="hadith-box">
+                    "إنَّ الله لا ينظرُ إلى صوركم وأموالكم، ولكن ينظرُ إلى قلوبكم وأعمالكم."
+                    <p style="margin-top: 0.5rem; font-size: 0.85rem; text-align: left; color: var(--primary);">[رواه مسلم]</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 - مدونة منارة اليقين الإسلامية</p>
+    </footer>
+
+</body>
+</html>
