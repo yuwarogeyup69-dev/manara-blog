@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منارة اليقين | مدونة إسلامية معاصرة</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- مكتبة الأيقونات لروابط التواصل -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -29,7 +28,7 @@
             line-height: 1.9;
         }
 
-        /* شريط التنقل */
+        /* شريط التنقل العلوي */
         nav {
             background-color: var(--primary);
             color: var(--white);
@@ -61,7 +60,6 @@
             background: none;
             border: none;
             color: var(--white);
-            text-decoration: none;
             font-weight: 600;
             cursor: pointer;
             transition: color 0.3s;
@@ -99,31 +97,57 @@
         /* الحاوية الرئيسية */
         .container {
             max-width: 1200px;
-            margin: 2.5rem auto;
+            margin: 2rem auto;
             padding: 0 1.5rem;
-            display: grid;
-            grid-template-columns: 2.2fr 1fr;
-            gap: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-            .nav-links {
-                display: none; /* إخفاء القائمة في الموبايل واكتفاء بالشريط الجانبي المنظم */
-            }
+        /* شريط الأقسام السريع في البداية (سهل الوصول لهاتفيًا) */
+        .top-menu-bar {
+            background-color: var(--white);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 0.8rem;
+            overflow-x: auto; /* للسحب السريع أفقياً من الهاتف */
+            white-space: nowrap;
+            border-top: 4px solid var(--secondary);
         }
 
-        /* نظام إخفاء وإظهار الأقسام (Tabs) */
+        .top-menu-btn {
+            background-color: #f4f6f5;
+            color: var(--primary);
+            border: 1px solid #dcdcdc;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .top-menu-btn:hover, .top-menu-btn.active {
+            background-color: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        /* نظام إخفاء وإظهار الأقسام */
         .content-section {
-            display: none; /* مخفي افتراضياً */
+            display: none;
             flex-direction: column;
             gap: 2rem;
         }
 
         .content-section.active {
-            display: flex; /* يظهر فقط القسم المختار */
+            display: flex;
         }
 
         .card {
@@ -221,6 +245,57 @@
             color: #555;
         }
 
+        /* تصميم قسم قصص الأنبياء */
+        .prophets-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .prophet-btn {
+            background-color: #fcf9f2;
+            border: 2px solid var(--secondary);
+            color: var(--primary);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .prophet-btn:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .prophet-story-card {
+            background-color: #fcf9f2;
+            border: 1px solid #dcd6cd;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .prophet-story-card.active {
+            display: block;
+        }
+
+        .story-lesson {
+            background-color: #e6f0ed;
+            border-right: 5px solid var(--primary);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
         .btn {
             display: inline-block;
             background-color: var(--primary);
@@ -239,59 +314,7 @@
             color: var(--primary);
         }
 
-        /* الشريط الجانبي (الأزرار المنظمة لكل قسم) */
-        aside {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .widget {
-            background-color: var(--white);
-            padding: 1.8rem;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        .widget h3 {
-            font-family: 'Amiri', serif;
-            color: var(--primary);
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid var(--secondary);
-            padding-bottom: 0.5rem;
-        }
-
-        /* أزرار القائمة الجانبية المنظمة */
-        .sidebar-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-        }
-
-        .sidebar-btn {
-            background-color: #f4f6f5;
-            color: var(--primary);
-            border: 1px solid #dcdcdc;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            text-align: right;
-            font-weight: 600;
-            font-family: 'Cairo', sans-serif;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .sidebar-btn:hover, .sidebar-btn.active {
-            background-color: var(--primary);
-            color: var(--white);
-            border-color: var(--primary);
-        }
-
-        /* تنسيق أزرار التواصل الاجتماعي */
+        /* تواصل معنا أزرار */
         .social-links {
             display: flex;
             flex-direction: column;
@@ -332,11 +355,9 @@
     <nav>
         <div class="logo">منارة اليقين</div>
         <ul class="nav-links">
-            <li><button onclick="showSection('home')" class="active">الرئيسية</button></li>
-            <li><button onclick="showSection('hadith')">حديث اليوم</button></li>
+            <li><button onclick="showSection('home')">الرئيسية</button></li>
+            <li><button onclick="showSection('prophets')">قصص الأنبياء</button></li>
             <li><button onclick="showSection('asma')">أسماء الله الحسنى</button></li>
-            <li><button onclick="showSection('sunnah')">السنن النبوية</button></li>
-            <li><button onclick="showSection('about')">عن المدونة</button></li>
             <li><button onclick="showSection('contact')">تواصل معنا</button></li>
         </ul>
     </nav>
@@ -347,28 +368,37 @@
     </header>
 
     <div class="container">
-        <!-- المحتوى الرئيسي (الأقسام التي تظهر وتختفي بالضغط) -->
+        
+        <!-- شريط الأقسام السهل والسريع في بداية الصفحة -->
+        <div class="top-menu-bar">
+            <button onclick="showSection('home')" class="top-menu-btn active" id="btn-home"><i class="fas fa-home"></i> الرئيسية</button>
+            <button onclick="showSection('hadith')" class="top-menu-btn" id="btn-hadith"><i class="fas fa-book-open"></i> حديث اليوم</button>
+            <button onclick="showSection('prophets')" class="top-menu-btn" id="btn-prophets"><i class="fas fa-feather-alt"></i> قصص الأنبياء</button>
+            <button onclick="showSection('asma')" class="top-menu-btn" id="btn-asma"><i class="fas fa-star"></i> أسماء الله الحسنى</button>
+            <button onclick="showSection('sunnah')" class="top-menu-btn" id="btn-sunnah"><i class="fas fa-sun"></i> السنن النبوية</button>
+            <button onclick="showSection('about')" class="top-menu-btn" id="btn-about"><i class="fas fa-info-circle"></i> عن المدونة</button>
+            <button onclick="showSection('contact')" class="top-menu-btn" id="btn-contact"><i class="fas fa-paper-plane"></i> تواصل معنا</button>
+        </div>
+
+        <!-- الأقسام -->
         <main>
-            <!-- 1. قسم الرئيسية -->
+            <!-- 1. الرئيسية -->
             <div id="home" class="content-section active">
                 <article class="card">
                     <span class="section-tag">🏠 مرحباً بك</span>
                     <h2>أهلاً بك في واحة منارة اليقين الإسلامية</h2>
                     <div class="meta"><span>📅 تحديثات مستمرة</span></div>
-                    <p>تم تصميم هذه المدونة لتكون مرجعاً مبسطاً يجمع الأحاديث الصحيحة، السنن النبوية، وأسماء الله الحسنى لتنير طريقك اليومي. اختر من القائمة الجانبية القسم الذي ترغب في استعراضه بكل سهولة.</p>
-                    <button onclick="showSection('hadith')" class="btn">استعرض حديث اليوم</button>
+                    <p>استخدم شريط الأقسام في أعلى الصفحة للاستعراض السهل والسريع؛ حيث يمكنك قراءة حديث اليوم، تصفح أسماء الله الحسنى، وقراءة قصص الأنبياء مع خلاصاتها المؤثرة.</p>
+                    <button onclick="showSection('prophets')" class="btn">استعرض قصص الأنبياء</button>
                 </article>
             </div>
 
-            <!-- 2. قسم حديث اليوم -->
+            <!-- 2. حديث اليوم -->
             <div id="hadith" class="content-section">
                 <article class="card">
                     <span class="section-tag">🌟 حديث اليوم (من صحيح البخاري)</span>
                     <h2>دروس نبوية متجددة يومياً</h2>
-                    <div class="meta">
-                        <span>📅 المرجع: صحيح البخاري</span>
-                        <span>✍️ يتحدث تلقائياً كل 24 ساعة</span>
-                    </div>
+                    <div class="meta"><span>📅 المرجع: صحيح البخاري</span></div>
                     <div class="daily-hadith-box">
                         <div id="hadithText" class="daily-hadith-text">جاري تحميل حديث اليوم...</div>
                         <div id="hadithExplanation" class="hadith-explanation"><strong>الشرح المبسط:</strong> جاري التحميل...</div>
@@ -377,144 +407,162 @@
                 </article>
             </div>
 
-            <!-- 3. قسم أسماء الله الحسنى -->
-            <div id="asma" class="content-section">
+            <!-- 3. قصص الأنبياء (الجديد) -->
+            <div id="prophets" class="content-section">
                 <article class="card">
-                    <span class="section-tag">✨ أسماء الله الحسنى</span>
-                    <h2>معرفة الخلق بخالقهم: أسماء الله الـ 99 ومعانيها</h2>
-                    <div class="meta"><span>📚 معاني ميسرة ودقيقة</span></div>
-                    <p>قال رسول الله صلى الله عليه وسلم: "إنَّ للهِ تِسعًا وتِسعينَ اسمًا، مائةً إلَّا واحدًا، من أحصاها دخلَ الجنةَ".</p>
-                    <div class="asma-grid" id="asmaContainer">
-                        <!-- تُعبأ تلقائياً -->
+                    <span class="section-tag">📖 قصص الأنبياء والرسل</span>
+                    <h2>عبر ودروس من قصص القرآن الكريم</h2>
+                    <div class="meta"><span>💡 اختر نبياً لعرض قصته وخلاسته</span></div>
+                    <p>اضغط على اسم النبي لتظهر لك قصته المصاغة بشكل مبسط ومستخلص العبرة منها:</p>
+                    
+                    <!-- أزرار أسماء الأنبياء -->
+                    <div class="prophets-list">
+                        <button class="prophet-btn" onclick="showProphet('adam')">آدم عليه السلام</button>
+                        <button class="prophet-btn" onclick="showProphet('nuh')">نوح عليه السلام</button>
+                        <button class="prophet-btn" onclick="showProphet('ibrahim')">إبراهيم عليه السلام</button>
+                        <button class="prophet-btn" onclick="showProphet('musa')">موسى عليه السلام</button>
+                        <button class="prophet-btn" onclick="showProphet('isa')">عيسى عليه السلام</button>
+                        <button class="prophet-btn" onclick="showProphet('yusuf')">يوسف عليه السلام</button>
+                    </div>
+
+                    <!-- محتوى قصص الأنبياء -->
+                    <div id="prophet-adam" class="prophet-story-card">
+                        <h3>قصة آدم أبو البشر عليه السلام</h3>
+                        <p>خلق الله آدم عليه السلام من تراب وأسكنه الجنة، وعلمه الأسماء كلها، وأمر الملائكة بالسجود له تكريماً. لكن إبليس استكبر وحسده فوسوس له ولزوجته حواء بالأكل من الشجرة التي نهاهما الله عنها. فوقعا في المعصية، ولكنهما بادرا فوراً بالتوبة والاستغفار (رَبَّنَا ظَلَمْنَا أَنْفُسَنَا...) فتاب الله عليهما وهبطا إلى الأرض لتعميرها.</p>
+                        <div class="story-lesson">
+                            <strong>الخلاصة والدروس المستفادة:</strong> التوبة الصادقة تمحو الذنب، فمهما وقع الإنسان في المعصية فعليه أن يسارع بالرجوع إلى الله، والحذر من كيد الشيطان وحسده.
+                        </div>
+                    </div>
+
+                    <div id="prophet-nuh" class="prophet-story-card">
+                        <h3>قصة نوح عليه السلام</h3>
+                        <p>دعا نوح عليه السلام قومه إلى عبادة الله وحده وترك الأوثان ألف سنة إلا خمسين عاماً ليلاً ونهاراً سرا وعلانية، فلم يؤمن معه إلا قليل، وكذبوه واستهزءوا به. فأمره الله أن يصنع السفينة بوحي منه، وجاء الطوفان العظيم فأغرق الكافرين ونجا نوح ومن معه في السفينة.</p>
+                        <div class="story-lesson">
+                            <strong>الخلاصة والدروس المستفادة:</strong> الصبر العظيم في الدعوة إلى الحق، والثقة المطلقة بنصر الله مهما كانت الظروف والضغوط المحيطة.
+                        </div>
+                    </div>
+
+                    <div id="prophet-ibrahim" class="prophet-story-card">
+                        <h3>قصة إبراهيم خليل الله عليه السلام</h3>
+                        <p>نشأ إبراهيم عليه السلام محارباً للأصنام التي لا تنفع ولا تضر، فحطّم أصنام قومه فجعلوا له كيداً وألقوه في النار العظيمة، فجعلها الله برداً وسلاماً عليه. واختبره الله بأمر عظيم وهو ذبح ابنه إسماعيل، فلما أسلما لله استجاب الله وفداه بذبح عظيم، ورزقه بناء الكعبة المشرفة.</p>
+                        <div class="story-lesson">
+                            <strong>الخلاصة والدروس المستفادة:</strong> التوكل التام على الله سبحانه، والتضحية بكل غالي في سبيل العقيدة، وحسن الظن بالله في أشد المحن.
+                        </div>
+                    </div>
+
+                    <div id="prophet-musa" class="prophet-story-card">
+                        <h3>قصة موسى كليم الله عليه السلام</h3>
+                        <p>وُلد موسى في زمن فرعون الطاغية الذي كان يقتل أبناء بني إسرائيل، فألهم الله أمه أن تقذفه في التابوت باليم، فوصل إلى قصر فرعون وتربى فيه. ثم أراد الله نجاة قومه فشق له البحر بعصاه، وأهلك فرعون وجنوده، وكلمه الله طور سيناء.</p>
+                        <div class="story-lesson">
+                            <strong>الخلاصة والدروس المستفادة:</strong> تدبير الله فوق كل تدبير بشري، فالباطل مهما علا فإن الحق يقهره، واليقين بنجاة المظلومين.
+                        </div>
+                    </div>
+
+                    <div id="prophet-isa" class="prophet-story-card">
+                        <h3>قصة عيسى المسيح عليه السلام</h3>
+                        <p>خلق الله عيسى ابن مريم آية للعالمين بلا أب، وأنطقه في المهد صبياً ليبير أمه ويثبت براءتها. وأيده الله بمعجزات عظيمة كإبراء الأكمه والأبرص وإحي بإذن الله، وأنزل عليه الإنجيل هدى ونوراً، ثم رفعه الله إليه سليماً من كيد أعدائه.</p>
+                        <div class="story-lesson">
+                            <strong>الخلاصة والدروس المستفادة:</strong> قدرة الله المطلقة التي لا تقف أمام الأسباب المادية، وأن المعجزات تثبت صدق رسالة الأنبياء.
+                        </div>
+                    </div>
+
+                    <div id="prophet-yusuf" class="prophet-story-card">
+                        <h3>قصة يوسف الصديق عليه السلام</h3>
+                        <p>رأى يوسف رؤيا الكواكب والشمس والقمر يسجدون له، فحسده إخوته وألقوه في غياب الجُب (البيئر)، فبيعت سيارة قافلة له ومضى إلى مصر ليربى في بيت العزيز. تعرّض لاختبارات شديدة في شبابه فصبر وعفّ عن الحرام فدخل السجن، ثم أخرجه الله وأعطاه الملك وتولى خزائن مصر وجمع أهله.</p>
+                        <div class="story-lesson">
+                            <strong>الخلاصة والدروس المستفادة:</strong> العفة والصبر الجميل عاقبتهما الفرج والعز، وأن العسر يتبعه اليسر لا محالة لمن اتقى وصبر.
+                        </div>
                     </div>
                 </article>
             </div>
 
-            <!-- 4. قسم السنن النبوية -->
-            <div id="sunnah" class="content-section">
+            <!-- 4. أسماء الله الحسنى -->
+            <div id="asma" class="content-section">
                 <article class="card">
-                    <span class="section-tag">⭐ قسم السنن النبوية</span>
-                    <h2>سنن مهجورة: احيِ سنّة النبي صلى الله عليه وسلم</h2>
-                    <div class="meta"><span>✍️ هدي نبوي مبارك</span></div>
-                    <p>من السنن العظيمة التي غفل عنها الكثيرون: النوم على طهارة، نفض الفراش قبل النوم ثلاث مرات، وصلاة ركعتين بعد الوضوء... احرص على إحيائها لتنال الأجر العظيم وتقتدي بالحبيب المصطفى صلى الله عليه وسلم.</p>
+                    <span class="section-tag">✨ أسماء الله الحسنى</span>
+                    <h2>أسماء الله الـ 99 ومعانيها</h2>
+                    <div class="meta"><span>📚 معاني ميسرة ودقيقة</span></div>
+                    <div class="asma-grid" id="asmaContainer"></div>
                 </article>
             </div>
 
-            <!-- 5. قسم عن المدونة -->
+            <!-- 5. السنن النبوية -->
+            <div id="sunnah" class="content-section">
+                <article class="card">
+                    <span class="section-tag">⭐ قسم السنن النبوية</span>
+                    <h2>سنن مهجورة عن النبي صلى الله عليه وسلم</h2>
+                    <p>النوم على طهارة، نفض الفراش قبل النوم ثلاث مرات، وصلاة ركعتين بعد الوضوء... احرص على إحيائها.</p>
+                </article>
+            </div>
+
+            <!-- 6. عن المدونة -->
             <div id="about" class="content-section">
                 <article class="card">
                     <span class="section-tag">📖 عن المدونة</span>
                     <h2>رسالتنا وأهدافنا</h2>
-                    <div class="meta"><span>✍️ إشراف صاحب المدونة</span></div>
-                    <p>هذه المدونة هي مساحة شخصية خالصة لوجه الله تعالى، تهدف إلى نشر العلم الشرعي المبسط، الأحاديث الصحيحة الثابتة عن النبي صلى الله عليه وسلم، وتقريب معاني أسماء الله الحسنى لقلوب المسلمين بأسلوب سهل ومريح.</p>
+                    <p>مساحة إيمانية خالصة لنشر الأحاديث الصحيحة وقصص الأنبياء وأسماء الله الحسنى بأسلوب مبسط ومريح.</p>
                 </article>
             </div>
 
-            <!-- 6. قسم تواصل معنا -->
+            <!-- 7. تواصل معنا -->
             <div id="contact" class="content-section">
                 <article class="card">
                     <span class="section-tag">📞 تواصل معنا</span>
-                    <h2>يسعدنا تواصلك معنا عبر القنوات التالية</h2>
-                    <div class="meta"><span>🤝 قنوات الاتصال المباشر</span></div>
-                    <p>للاستفسارات أو مشاركة الاقتراحات، يمكنك التواصل معنا مباشرة من خلال الأزرار أدناه:</p>
+                    <h2>قنوات الاتصال المباشر</h2>
                     <div class="social-links" style="margin-top: 1.5rem;">
-                        <a href="https://wa.me/+249993775047" target="_blank" class="social-btn whatsapp">
-                            <i class="fab fa-whatsapp"></i> مراسلة عبر الواتساب
-                        </a>
-                        <a href="https://www.facebook.com/mohammed.abdallah.425685" target="_blank" class="social-btn facebook">
-                            <i class="fab fa-facebook-f"></i> تابعني على فيسبوك
-                        </a>
-                        <a href="https://www.instagram.com/mohammed44133?cplk=ampld3U4bnhlZ29s" target="_blank" class="social-btn instagram">
-                            <i class="fab fa-instagram"></i> تابعني على إنستغرام
-                        </a>
-                        <a href="mailto:mohammed425685@gmail.com" class="social-btn email">
-                            <i class="fas fa-envelope"></i> راسلني عبر البريد الإلكتروني
-                        </a>
+                        <a href="https://wa.me/+249993775047" target="_blank" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i> مراسلة عبر الواتساب</a>
+                        <a href="https://www.facebook.com/mohammed.abdallah.425685" target="_blank" class="social-btn facebook"><i class="fab fa-facebook-f"></i> تابعني على فيسبوك</a>
+                        <a href="https://www.instagram.com/mohammed44133?cplk=ampld3U4bnhlZ29s" target="_blank" class="social-btn instagram"><i class="fab fa-instagram"></i> تابعني على إنستغرام</a>
+                        <a href="mailto:mohammed425685@gmail.com" class="social-btn email"><i class="fas fa-envelope"></i> راسلني عبر البريد الإلكتروني</a>
                     </div>
                 </article>
             </div>
         </main>
-
-        <!-- الشريط الجانبي (أزرار منظمة للتحكم الكامل بكل قسم على حدة) -->
-        <aside>
-            <div class="widget">
-                <h3>أقسام المدونة</h3>
-                <div class="sidebar-menu">
-                    <button onclick="showSection('home')" class="sidebar-btn active" id="btn-home"><i class="fas fa-home"></i> الرئيسية</button>
-                    <button onclick="showSection('hadith')" class="sidebar-btn" id="btn-hadith"><i class="fas fa-book-open"></i> حديث اليوم</button>
-                    <button onclick="showSection('asma')" class="sidebar-btn" id="btn-asma"><i class="fas fa-star"></i> أسماء الله الحسنى</button>
-                    <button onclick="showSection('sunnah')" class="sidebar-btn" id="btn-sunnah"><i class="fas fa-sun"></i> السنن النبوية</button>
-                    <button onclick="showSection('about')" class="sidebar-btn" id="btn-about"><i class="fas fa-info-circle"></i> عن المدونة</button>
-                    <button onclick="showSection('contact')" class="sidebar-btn" id="btn-contact"><i class="fas fa-paper-plane"></i> تواصل معنا</button>
-                </div>
-            </div>
-
-            <div class="widget">
-                <h3>حكمة إيمانية</h3>
-                <p style="font-style: italic; color: #555; font-size: 0.95rem;">"من عَمِلَ صالِحاً مِن ذَكَرٍ أو أُنثى وهو مؤمن فلنحيينه حياة طيبة"</p>
-            </div>
-        </aside>
     </div>
 
     <footer>
         <p>جميع الحقوق محفوظة © 2026 - مدونة منارة اليقين الإسلامية</p>
     </footer>
 
-    <!-- سكربت جافاسكريبت للتحكم في إظهار وإخفاء الأقسام بالضغط -->
     <script>
         function showSection(sectionId) {
-            // إخفاء كل الأقسام
             const sections = document.querySelectorAll('.content-section');
             sections.forEach(sec => sec.classList.remove('active'));
 
-            // إظهار القسم المطلوب فقط
             document.getElementById(sectionId).classList.add('active');
 
-            // تحديث تصميم الأزرار النشطة في الشريط الجانبي والقائمة
-            const sidebarBtns = document.querySelectorAll('.sidebar-btn');
-            sidebarBtns.forEach(btn => btn.classList.remove('active'));
+            const menuBtns = document.querySelectorAll('.top-menu-btn');
+            menuBtns.forEach(btn => btn.classList.remove('active'));
             
             const activeBtn = document.getElementById('btn-' + sectionId);
             if(activeBtn) activeBtn.classList.add('active');
 
-            // التمرير لأعلى الصفحة بسلاسة عند الضغط
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // بيانات حديث اليوم من صحيح البخاري
+        // عرض قصة النبي عند الضغط عليه
+        function showProphet(prophetId) {
+            const cards = document.querySelectorAll('.prophet-story-card');
+            cards.forEach(card => card.classList.remove('active'));
+
+            const targetCard = document.getElementById('prophet-' + prophetId);
+            if(targetCard) targetCard.classList.add('active');
+        }
+
         const bukhariHadiths = [
-            {
-                text: "«إنَّما الأعمالُ بالنِّيّاتِ، وإنَّما لكلِّ امرئٍ ما نَوَى»",
-                explanation: "الشرح المبسط: هذا حديث عظيم وميزان للأعمال؛ فصلاح العمل وقبوله عند الله يتوقف على إخلاص النية لله وحده."
-            },
-            {
-                text: "«مَن كان يؤمنُ باللهِ واليومِ الآخرِ فليقلْ خيراً أو ليصمتْ»",
-                explanation: "الشرح المبسط: يحثنا النبي صلى الله عليه وسلم على حفظ اللسان، وأنه إما أن يتكلم الإنسان بخير أو يسكت."
-            },
-            {
-                text: "«لا يؤمنُ أحدُكم حتى يحبَّ لأخيه ما يحبُّ لنفسه»",
-                explanation: "الشرح المبسط: دليل على كمال الإيمان وحسن الخلق، حيث يحب المسلم لأخيه المسلم الخير كما يحبه لنفسه."
-            },
-            {
-                text: "«الكلمةُ الطيِّبةُ صدقةٌ»",
-                explanation: "الشرح المبسط: تبين عظمة الإسلام في تسهيل أعمال الخير؛ فالكلام الطيب والابتسامة تُحتسب لك صدقة."
-            },
-            {
-                text: "«خيارُكم مَن تعلمَ القرآنَ وعلمهُ»",
-                explanation: "الشرح المبسط: يرفع النبي صلى الله عليه وسلم من شأن أهل القرآن المتعلمين والمعلمين لهم."
-            }
+            { text: "«إنَّما الأعمالُ بالنِّيّاتِ، وإنَّما لكلِّ امرئٍ ما نَوَى»", explanation: "الشرح المبسط: صلاح العمل وقبوله عند الله يتوقف على إخلاص النية لله وحده." },
+            { text: "«مَن كان يؤمنُ باللهِ واليومِ الآخرِ فليقلْ خيراً أو ليصمتْ»", explanation: "الشرح المبسط: حفظ اللسان بالاكتفاء بالكلام النافع أو السكوت." },
+            { text: "«لا يؤمنُ أحدُكم حتى يحبَّ لأخيه ما يحبُّ لنفسه»", explanation: "الشرح المبسط: كمال الإيمان يتمثل في حب الخير للآخرين كما تحبه لنفسك." }
         ];
 
         function loadDailyHadith() {
             const today = new Date();
             const dayIndex = Math.floor(today.getTime() / (1000 * 60 * 60 * 24)) % bukhariHadiths.length;
             const selected = bukhariHadiths[dayIndex];
-            
             document.getElementById("hadithText").innerText = selected.text;
             document.getElementById("hadithExplanation").innerHTML = "<strong>الشرح المبسط:</strong> " + selected.explanation;
         }
 
-        // قائمة أسماء الله الحسنى الـ 99
         const asmaAlHusna = [
             {name: "الله", meaning: "الاسم الأعظم الجامع لمعاني الألوهية."},
             {name: "الرحمن", meaning: "الواسع الرحمة لكل خلقه."},
@@ -534,7 +582,7 @@
             {name: "القهار", meaning: "الغالب لكل شيء خاضع له."},
             {name: "الوهاب", meaning: "المعطي للعطايا بلا عوض."},
             {name: "الرزاق", meaning: "المقوت لخلقه وأرزاقهم."},
-            {name: "الفتاح", meaning: "الفتح والمهيمن برحمته."},
+            {name: "الفتاح", meaning: "الفاتح والمهيمن برحمته."},
             {name: "العليم", meaning: "المحيط بكل شيء علماً."},
             {name: "القابض", meaning: "المقيد لرزقه وفضله حكمةً."},
             {name: "الباسط", meaning: "الموسع لرزقه وفضله."},
@@ -631,7 +679,6 @@
             container.innerHTML = htmlContent;
         }
 
-        // تشغيل الدوال عند فتح الموقع
         window.onload = function() {
             loadDailyHadith();
             loadAsmaAlHusna();
