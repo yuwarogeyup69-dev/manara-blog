@@ -8,17 +8,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #0F382B;       /* أخضر غامق ملكي */
-            --secondary: #C5A059;     /* ذهبي راقٍ */
-            --accent: #EFECE6;        /* خلفية ناعمة */
-            --text-main: #2C3E50;     /* لون النصوص الأساسي */
+            --primary: #0F382B;
+            --secondary: #C5A059;
+            --accent: #EFECE6;
+            --text-main: #2C3E50;
             --white: #FFFFFF;
+            --card-bg: #FFFFFF;
+        }
+
+        /* سمات الوضع الليلي (Dark Mode) */
+        body.dark-mode {
+            --primary: #1b4d3e;
+            --secondary: #d4af37;
+            --accent: #121816;
+            --text-main: #EFECE6;
+            --white: #1A2321;
+            --card-bg: #1A2321;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         body {
@@ -49,32 +61,31 @@
             font-weight: 700;
         }
 
-        .nav-links {
-            list-style: none;
+        .nav-right {
             display: flex;
+            align-items: center;
             gap: 1rem;
-            flex-wrap: wrap;
         }
 
-        .nav-links button {
+        /* زر الوضع الليلي */
+        .theme-toggle-btn {
             background: none;
-            border: none;
-            color: var(--white);
-            font-weight: 600;
-            cursor: pointer;
-            transition: color 0.3s;
-            font-size: 0.95rem;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        .nav-links button:hover, .nav-links button.active {
+            border: 2px solid var(--secondary);
             color: var(--secondary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
         }
 
         /* رأس الصفحة (الهيدر) */
         header {
             background: linear-gradient(rgba(15, 56, 43, 0.85), rgba(15, 56, 43, 0.85)), url('https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80') center/cover;
-            color: var(--white);
+            color: #FFFFFF;
             text-align: center;
             padding: 4rem 1rem;
             border-bottom: 5px solid var(--secondary);
@@ -84,7 +95,7 @@
             font-family: 'Amiri', serif;
             font-size: 2.8rem;
             margin-bottom: 0.5rem;
-            color: var(--white);
+            color: #FFFFFF;
         }
 
         header p {
@@ -104,23 +115,23 @@
             gap: 2rem;
         }
 
-        /* شريط الأقسام السريع في البداية (سهل الوصول لهاتفيًا) */
+        /* شريط الأقسام السريع في البداية */
         .top-menu-bar {
-            background-color: var(--white);
+            background-color: var(--card-bg);
             padding: 1rem;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             display: flex;
             gap: 0.8rem;
-            overflow-x: auto; /* للسحب السريع أفقياً من الهاتف */
+            overflow-x: auto;
             white-space: nowrap;
             border-top: 4px solid var(--secondary);
         }
 
         .top-menu-btn {
-            background-color: #f4f6f5;
+            background-color: var(--accent);
             color: var(--primary);
-            border: 1px solid #dcdcdc;
+            border: 1px solid var(--secondary);
             padding: 0.6rem 1.2rem;
             border-radius: 8px;
             font-weight: 600;
@@ -151,7 +162,7 @@
         }
 
         .card {
-            background-color: var(--white);
+            background-color: var(--card-bg);
             padding: 2.5rem;
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
@@ -160,8 +171,8 @@
 
         .section-tag {
             display: inline-block;
-            background-color: #e6f0ed;
-            color: var(--primary);
+            background-color: rgba(197, 160, 89, 0.15);
+            color: var(--secondary);
             padding: 0.25rem 0.75rem;
             border-radius: 4px;
             font-size: 0.85rem;
@@ -188,20 +199,20 @@
 
         .card p, .card div {
             font-size: 1.1rem;
-            color: #444;
+            color: var(--text-main);
             margin-bottom: 1.5rem;
         }
 
-        /* صندوق حديث اليوم */
-        .daily-hadith-box {
-            background-color: #fcf9f2;
+        /* صندوق حديث اليوم والأذكار */
+        .daily-hadith-box, .dhikr-box {
+            background-color: var(--accent);
             border: 2px solid var(--secondary);
             padding: 1.5rem;
             border-radius: 10px;
             margin-bottom: 1.5rem;
         }
 
-        .daily-hadith-text {
+        .daily-hadith-text, .dhikr-text {
             font-family: 'Amiri', serif;
             font-size: 1.3rem;
             color: var(--primary);
@@ -211,41 +222,53 @@
 
         .hadith-explanation {
             font-size: 1rem;
-            color: #555;
+            color: var(--text-main);
             border-top: 1px dashed var(--secondary);
             padding-top: 0.8rem;
         }
 
-        /* شبكة أسماء الله الحسنى */
-        .asma-grid {
+        /* عداد التسبيح للأذكار */
+        .counter-badge {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* شبكة أسماء الله الحسنى والسنن والمكتبة */
+        .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 1rem;
             margin-top: 1.5rem;
         }
 
-        .asma-item {
-            background-color: #fcf9f2;
-            border: 1px solid #e3d7c3;
+        .grid-item {
+            background-color: var(--accent);
+            border: 1px solid var(--secondary);
             border-radius: 8px;
-            padding: 1rem;
+            padding: 1.2rem;
             text-align: center;
         }
 
-        .asma-name {
+        .grid-title {
             font-family: 'Amiri', serif;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: var(--primary);
             font-weight: bold;
             margin-bottom: 0.3rem;
         }
 
-        .asma-meaning {
-            font-size: 0.85rem;
-            color: #555;
+        .grid-desc {
+            font-size: 0.9rem;
+            color: var(--text-main);
         }
 
-        /* تصميم قسم قصص الأنبياء */
+        /* قصص الأنبياء */
         .prophets-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -255,13 +278,13 @@
         }
 
         .prophet-btn {
-            background-color: #fcf9f2;
+            background-color: var(--accent);
             border: 2px solid var(--secondary);
             color: var(--primary);
             padding: 1rem;
             border-radius: 8px;
             font-family: 'Amiri', serif;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
@@ -274,8 +297,8 @@
         }
 
         .prophet-story-card {
-            background-color: #fcf9f2;
-            border: 1px solid #dcd6cd;
+            background-color: var(--accent);
+            border: 1px solid var(--secondary);
             padding: 2rem;
             border-radius: 10px;
             margin-top: 1.5rem;
@@ -287,13 +310,45 @@
         }
 
         .story-lesson {
-            background-color: #e6f0ed;
+            background-color: rgba(197, 160, 89, 0.2);
             border-right: 5px solid var(--primary);
             padding: 1rem;
             margin-top: 1rem;
             border-radius: 4px;
             font-weight: 600;
             color: var(--primary);
+        }
+
+        /* قسم التعليقات والخواطر */
+        .comments-section {
+            margin-top: 2rem;
+        }
+
+        .comment-input {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--secondary);
+            background-color: var(--accent);
+            color: var(--text-main);
+            font-family: 'Cairo', sans-serif;
+            margin-bottom: 0.8rem;
+            resize: vertical;
+        }
+
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .comment-item {
+            background-color: var(--accent);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+            font-size: 0.95rem;
         }
 
         .btn {
@@ -330,7 +385,6 @@
             text-decoration: none;
             color: white;
             font-weight: 600;
-            transition: opacity 0.3s;
         }
 
         .whatsapp { background-color: #25D366; }
@@ -338,10 +392,9 @@
         .instagram { background: linear-gradient(45deg, #405DE6, #833AB4, #E1306C, #FCAF45); }
         .email { background-color: #EA4335; }
 
-        /* التذييل */
         footer {
             background-color: var(--primary);
-            color: var(--white);
+            color: #FFFFFF;
             text-align: center;
             padding: 2rem;
             margin-top: 4rem;
@@ -354,42 +407,40 @@
 
     <nav>
         <div class="logo">منارة اليقين</div>
-        <ul class="nav-links">
-            <li><button onclick="showSection('home')">الرئيسية</button></li>
-            <li><button onclick="showSection('prophets')">قصص الأنبياء</button></li>
-            <li><button onclick="showSection('asma')">أسماء الله الحسنى</button></li>
-            <li><button onclick="showSection('contact')">تواصل معنا</button></li>
-        </ul>
+        <div class="nav-right">
+            <button onclick="toggleDarkMode()" class="theme-toggle-btn" id="themeBtn"><i class="fas fa-moon"></i> الوضع الليلي</button>
+        </div>
     </nav>
 
     <header>
         <h1>مدونة منارة اليقين</h1>
-        <p>مساحة إيمانية هادئة لإضاءة القلوب بنور القرآن والسنة</p>
+        <p>منصة إسلامية شاملة لإضاءة القلوب بنور القرآن والسنة والأذكار</p>
     </header>
 
     <div class="container">
         
-        <!-- شريط الأقسام السهل والسريع في بداية الصفحة -->
+        <!-- شريط الأقسام السريع والمنظم في البداية -->
         <div class="top-menu-bar">
             <button onclick="showSection('home')" class="top-menu-btn active" id="btn-home"><i class="fas fa-home"></i> الرئيسية</button>
             <button onclick="showSection('hadith')" class="top-menu-btn" id="btn-hadith"><i class="fas fa-book-open"></i> حديث اليوم</button>
+            <button onclick="showSection('dhikr')" class="top-menu-btn" id="btn-dhikr"><i class="fas fa-pray"></i> الأذكار اليومية</button>
+            <button onclick="showSection('library')" class="top-menu-btn" id="btn-library"><i class="fas fa-books"></i> مكتبة الأحاديث</button>
+            <button onclick="showSection('quran')" class="top-menu-btn" id="btn-quran"><i class="fas fa-headphones"></i> تلاوات قرآنية</button>
             <button onclick="showSection('prophets')" class="top-menu-btn" id="btn-prophets"><i class="fas fa-feather-alt"></i> قصص الأنبياء</button>
             <button onclick="showSection('asma')" class="top-menu-btn" id="btn-asma"><i class="fas fa-star"></i> أسماء الله الحسنى</button>
-            <button onclick="showSection('sunnah')" class="top-menu-btn" id="btn-sunnah"><i class="fas fa-sun"></i> السنن النبوية</button>
-            <button onclick="showSection('about')" class="top-menu-btn" id="btn-about"><i class="fas fa-info-circle"></i> عن المدونة</button>
+            <button onclick="showSection('thoughts')" class="top-menu-btn" id="btn-thoughts"><i class="fas fa-comments"></i> الخواطر والتعليقات</button>
             <button onclick="showSection('contact')" class="top-menu-btn" id="btn-contact"><i class="fas fa-paper-plane"></i> تواصل معنا</button>
         </div>
 
-        <!-- الأقسام -->
         <main>
             <!-- 1. الرئيسية -->
             <div id="home" class="content-section active">
                 <article class="card">
                     <span class="section-tag">🏠 مرحباً بك</span>
-                    <h2>أهلاً بك في واحة منارة اليقين الإسلامية</h2>
-                    <div class="meta"><span>📅 تحديثات مستمرة</span></div>
-                    <p>استخدم شريط الأقسام في أعلى الصفحة للاستعراض السهل والسريع؛ حيث يمكنك قراءة حديث اليوم، تصفح أسماء الله الحسنى، وقراءة قصص الأنبياء مع خلاصاتها المؤثرة.</p>
-                    <button onclick="showSection('prophets')" class="btn">استعرض قصص الأنبياء</button>
+                    <h2>أهلاً بك في واحة منارة اليقين المتكاملة</h2>
+                    <div class="meta"><span>📅 تحديث شامل ومستمر</span></div>
+                    <p>تم تحديث المدونة لتشمل الآن: أذكار الصباح والمساء التفاعلية، مكتبة أحاديث البخاري المصنفة، تلاوات قرآنية هادئة، قصص الأنبياء الشاملة، وخاصية الوضع الليلي المريح للعين.</p>
+                    <button onclick="showSection('dhikr')" class="btn">ابدأ بالأذكار اليومية</button>
                 </article>
             </div>
 
@@ -400,111 +451,162 @@
                     <h2>دروس نبوية متجددة يومياً</h2>
                     <div class="meta"><span>📅 المرجع: صحيح البخاري</span></div>
                     <div class="daily-hadith-box">
-                        <div id="hadithText" class="daily-hadith-text">جاري تحميل حديث اليوم...</div>
+                        <div id="hadithText" class="daily-hadith-text">جاري التحميل...</div>
                         <div id="hadithExplanation" class="hadith-explanation"><strong>الشرح المبسط:</strong> جاري التحميل...</div>
                     </div>
                     <button class="btn" onclick="loadDailyHadith()">🔄 تحديث الحديث</button>
                 </article>
             </div>
 
-            <!-- 3. قصص الأنبياء (الجديد) -->
+            <!-- 3. الأذكار اليومية التفاعلية -->
+            <div id="dhikr" class="content-section">
+                <article class="card">
+                    <span class="section-tag">📿 الأذكار والأدعية</span>
+                    <h2>أذكار الصباح والمساء (مع عداد تفاعلي)</h2>
+                    <div class="meta"><span>💡 اضغط على العداد لتنقيصه مع كل تكرار</span></div>
+                    
+                    <div class="dhikr-box">
+                        <div class="dhikr-text">«سُبْحَانَ اللَّهِ وَبِحَمْدِهِ»</div>
+                        <p>من قالها مائة مرة حُطَّت خطيئته وإن كانت مثل زبد البحر.</p>
+                        <button class="counter-badge" id="c1" onclick="decreaseCounter('c1', 100)">التكرار المتبقي: 100</button>
+                    </div>
+
+                    <div class="dhikr-box">
+                        <div class="dhikr-text">«اللَّهُمَّ أَنْتَ رَبِّي لا إلهَ إلا أنتَ...» (سيد الاستغفار)</div>
+                        <p>من قالها من النهار موقناً بها فمات من يومه فهو من أهل الجنة.</p>
+                        <button class="counter-badge" id="c2" onclick="decreaseCounter('c2', 1)">التكرار المتبقي: 1</button>
+                    </div>
+
+                    <div class="dhikr-box">
+                        <div class="dhikr-text">«بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ في الأرْضِ وَلَا في السَّمَاءِ»</div>
+                        <p>ثلاث مرات صباحاً ومساءً ولن يضره شيء.</p>
+                        <button class="counter-badge" id="c3" onclick="decreaseCounter('c3', 3)">التكرار المتبقي: 3</button>
+                    </div>
+                </article>
+            </div>
+
+            <!-- 4. مكتبة الأحاديث الشريفة المصنفة -->
+            <div id="library" class="content-section">
+                <article class="card">
+                    <span class="section-tag">📚 مكتبة الأحاديث الشريفة</span>
+                    <h2>أحاديث نبوية مصنفة في شتى مناحي الحياة</h2>
+                    <div class="meta"><span>🏷️ مصادر صحيحة وموثوقة</span></div>
+                    
+                    <div class="grid-container">
+                        <div class="grid-item">
+                            <div class="grid-title">باب الأخلاق</div>
+                            <div class="grid-desc">«إنما بُعثت لأتمم مكارم الأخلاق» <br>[رواه أحمد]</div>
+                        </div>
+                        <div class="grid-item">
+                            <div class="grid-title">باب الصبر</div>
+                            <div class="grid-desc">«وما أعطي أحد عطاء خيراً وأوسع من الصبر» <br>[رواه البخاري]</div>
+                        </div>
+                        <div class="grid-item">
+                            <div class="grid-title">باب الصلاة</div>
+                            <div class="grid-desc">«أول ما يحاسب به العبد يوم القيامة الصلاة» <br>[رواه الترمذي]</div>
+                        </div>
+                        <div class="grid-item">
+                            <div class="grid-title">باب صلة الرحم</div>
+                            <div class="grid-desc">«من أحب أن يُبسط له في رزقه فليصل رحمه» <br>[رواه البخاري]</div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- 5. تلاوات قرآنية -->
+            <div id="quran" class="content-section">
+                <article class="card">
+                    <span class="section-tag">🎧 تلاوات قرآنية هادئة</span>
+                    <h2>استمع إلى آيات من الذكر الحكيم</h2>
+                    <div class="meta"><span>🔊 تلاوات خاشعة ومريحة للقلوب</span></div>
+                    
+                    <div class="dhikr-box">
+                        <div class="grid-title">تلاوة خاشعة بصوت القارئ (سورة البقرة / آيات السكينة)</div>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem;">اضغط على زر التشغيل للاستماع المباشر:</p>
+                        <audio controls style="width: 100%; margin-top: 1rem;">
+                            <source src="https://download.quranicaudio.com/quran/maher_almu3aiqly/002.mp3" type="audio/mpeg">
+                            متصفحك لا يدعم تشغيل الملفات الصوتية.
+                        </audio>
+                    </div>
+                </article>
+            </div>
+
+            <!-- 6. قصص الأنبياء -->
             <div id="prophets" class="content-section">
                 <article class="card">
                     <span class="section-tag">📖 قصص الأنبياء والرسل</span>
                     <h2>عبر ودروس من قصص القرآن الكريم</h2>
-                    <div class="meta"><span>💡 اختر نبياً لعرض قصته وخلاسته</span></div>
-                    <p>اضغط على اسم النبي لتظهر لك قصته المصاغة بشكل مبسط ومستخلص العبرة منها:</p>
+                    <div class="meta"><span>💡 اختر نبياً لعرض قصته وخلاستها</span></div>
                     
-                    <!-- أزرار أسماء الأنبياء -->
                     <div class="prophets-list">
                         <button class="prophet-btn" onclick="showProphet('adam')">آدم عليه السلام</button>
                         <button class="prophet-btn" onclick="showProphet('nuh')">نوح عليه السلام</button>
                         <button class="prophet-btn" onclick="showProphet('ibrahim')">إبراهيم عليه السلام</button>
                         <button class="prophet-btn" onclick="showProphet('musa')">موسى عليه السلام</button>
-                        <button class="prophet-btn" onclick="showProphet('isa')">عيسى عليه السلام</button>
                         <button class="prophet-btn" onclick="showProphet('yusuf')">يوسف عليه السلام</button>
                     </div>
 
-                    <!-- محتوى قصص الأنبياء -->
                     <div id="prophet-adam" class="prophet-story-card">
                         <h3>قصة آدم أبو البشر عليه السلام</h3>
-                        <p>خلق الله آدم عليه السلام من تراب وأسكنه الجنة، وعلمه الأسماء كلها، وأمر الملائكة بالسجود له تكريماً. لكن إبليس استكبر وحسده فوسوس له ولزوجته حواء بالأكل من الشجرة التي نهاهما الله عنها. فوقعا في المعصية، ولكنهما بادرا فوراً بالتوبة والاستغفار (رَبَّنَا ظَلَمْنَا أَنْفُسَنَا...) فتاب الله عليهما وهبطا إلى الأرض لتعميرها.</p>
-                        <div class="story-lesson">
-                            <strong>الخلاصة والدروس المستفادة:</strong> التوبة الصادقة تمحو الذنب، فمهما وقع الإنسان في المعصية فعليه أن يسارع بالرجوع إلى الله، والحذر من كيد الشيطان وحسده.
-                        </div>
+                        <p>خلق الله آدم وأسكنه الجنة، ووسوس له إبليس فأكل من الشجرة فتاب الله عليه وهبط للأرض لتعميرها.</p>
+                        <div class="story-lesson"><strong>الخلاصة:</strong> التوبة الصادقة تمحو الذنب والحذر واجب من وسوسة الشيطان.</div>
                     </div>
 
                     <div id="prophet-nuh" class="prophet-story-card">
                         <h3>قصة نوح عليه السلام</h3>
-                        <p>دعا نوح عليه السلام قومه إلى عبادة الله وحده وترك الأوثان ألف سنة إلا خمسين عاماً ليلاً ونهاراً سرا وعلانية، فلم يؤمن معه إلا قليل، وكذبوه واستهزءوا به. فأمره الله أن يصنع السفينة بوحي منه، وجاء الطوفان العظيم فأغرق الكافرين ونجا نوح ومن معه في السفينة.</p>
-                        <div class="story-lesson">
-                            <strong>الخلاصة والدروس المستفادة:</strong> الصبر العظيم في الدعوة إلى الحق، والثقة المطلقة بنصر الله مهما كانت الظروف والضغوط المحيطة.
-                        </div>
+                        <p>دعا قومه ألف سنة إلا خمسين عاماً صابراً محتسباً، فنجاه الله في السفينة وأغرق الكافرين.</p>
+                        <div class="story-lesson"><strong>الخلاصة:</strong> الصبر العظيم في الدعوة والثقة المطلقة بنصر الله.</div>
                     </div>
 
                     <div id="prophet-ibrahim" class="prophet-story-card">
                         <h3>قصة إبراهيم خليل الله عليه السلام</h3>
-                        <p>نشأ إبراهيم عليه السلام محارباً للأصنام التي لا تنفع ولا تضر، فحطّم أصنام قومه فجعلوا له كيداً وألقوه في النار العظيمة، فجعلها الله برداً وسلاماً عليه. واختبره الله بأمر عظيم وهو ذبح ابنه إسماعيل، فلما أسلما لله استجاب الله وفداه بذبح عظيم، ورزقه بناء الكعبة المشرفة.</p>
-                        <div class="story-lesson">
-                            <strong>الخلاصة والدروس المستفادة:</strong> التوكل التام على الله سبحانه، والتضحية بكل غالي في سبيل العقيدة، وحسن الظن بالله في أشد المحن.
-                        </div>
+                        <p>حارب الأصنام فألقوه في النار فجعلها الله برداً وسلاماً، واستسلم لأمر ربه بذبح ابنه ففداه بعظيم.</p>
+                        <div class="story-lesson"><strong>الخلاصة:</strong> التوكل التام والتضحية في سبيل العقيدة.</div>
                     </div>
 
                     <div id="prophet-musa" class="prophet-story-card">
                         <h3>قصة موسى كليم الله عليه السلام</h3>
-                        <p>وُلد موسى في زمن فرعون الطاغية الذي كان يقتل أبناء بني إسرائيل، فألهم الله أمه أن تقذفه في التابوت باليم، فوصل إلى قصر فرعون وتربى فيه. ثم أراد الله نجاة قومه فشق له البحر بعصاه، وأهلك فرعون وجنوده، وكلمه الله طور سيناء.</p>
-                        <div class="story-lesson">
-                            <strong>الخلاصة والدروس المستفادة:</strong> تدبير الله فوق كل تدبير بشري، فالباطل مهما علا فإن الحق يقهره، واليقين بنجاة المظلومين.
-                        </div>
-                    </div>
-
-                    <div id="prophet-isa" class="prophet-story-card">
-                        <h3>قصة عيسى المسيح عليه السلام</h3>
-                        <p>خلق الله عيسى ابن مريم آية للعالمين بلا أب، وأنطقه في المهد صبياً ليبير أمه ويثبت براءتها. وأيده الله بمعجزات عظيمة كإبراء الأكمه والأبرص وإحي بإذن الله، وأنزل عليه الإنجيل هدى ونوراً، ثم رفعه الله إليه سليماً من كيد أعدائه.</p>
-                        <div class="story-lesson">
-                            <strong>الخلاصة والدروس المستفادة:</strong> قدرة الله المطلقة التي لا تقف أمام الأسباب المادية، وأن المعجزات تثبت صدق رسالة الأنبياء.
-                        </div>
+                        <p>تربى في قصر فرعون ثم نجاه الله وشق له البحر بعصاه وأهلك الطاغية.</p>
+                        <div class="story-lesson"><strong>الخلاصة:</strong> تدبير الله فوق كل تدبير والحق ينتصر دائماً.</div>
                     </div>
 
                     <div id="prophet-yusuf" class="prophet-story-card">
                         <h3>قصة يوسف الصديق عليه السلام</h3>
-                        <p>رأى يوسف رؤيا الكواكب والشمس والقمر يسجدون له، فحسده إخوته وألقوه في غياب الجُب (البيئر)، فبيعت سيارة قافلة له ومضى إلى مصر ليربى في بيت العزيز. تعرّض لاختبارات شديدة في شبابه فصبر وعفّ عن الحرام فدخل السجن، ثم أخرجه الله وأعطاه الملك وتولى خزائن مصر وجمع أهله.</p>
-                        <div class="story-lesson">
-                            <strong>الخلاصة والدروس المستفادة:</strong> العفة والصبر الجميل عاقبتهما الفرج والعز، وأن العسر يتبعه اليسر لا محالة لمن اتقى وصبر.
+                        <p>ألقاه إخوته في البئر فصبر وعفّ عن الفتنة حتى تولى خزائن مصر.</p>
+                        <div class="story-lesson"><strong>الخلاصة:</strong> العفة والصبر الجميل عاقبتهما الفرج والعز.</div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- 7. أسماء الله الحسنى -->
+            <div id="asma" class="content-section">
+                <article class="card">
+                    <span class="section-tag">✨ أسماء الله الحسنى</span>
+                    <h2>أسماء الله الـ 99 ومعانيها الميسرة</h2>
+                    <div class="grid-container" id="asmaContainer"></div>
+                </article>
+            </div>
+
+            <!-- 8. الخواطر والتعليقات -->
+            <div id="thoughts" class="content-section">
+                <article class="card">
+                    <span class="section-tag">💬 مساحة الخواطر الإيمانية</span>
+                    <h2>شاركنا خاطرتك أو رسالتك الطيبة</h2>
+                    <div class="meta"><span>✍️ اترك أثراً حسناً ليقرأه زوار المدونة</span></div>
+                    
+                    <div class="comments-section">
+                        <textarea id="commentText" class="comment-input" rows="3" placeholder="اكتب خاطرتك أو دعاءً جميلاً هنا..."></textarea>
+                        <button class="btn" onclick="addComment()">نشر الخاطرة</button>
+                        
+                        <div class="comments-list" id="commentsList">
+                            <div class="comment-item"><strong>عابر سبيل:</strong> "اللهم اجعل هذه المدونة في ميزان حسنات قائلها وناشرها."</div>
+                            <div class="comment-item"><strong>زائر كريم:</strong> "سبحان الله وبحمده سبحان الله العظيم."</div>
                         </div>
                     </div>
                 </article>
             </div>
 
-            <!-- 4. أسماء الله الحسنى -->
-            <div id="asma" class="content-section">
-                <article class="card">
-                    <span class="section-tag">✨ أسماء الله الحسنى</span>
-                    <h2>أسماء الله الـ 99 ومعانيها</h2>
-                    <div class="meta"><span>📚 معاني ميسرة ودقيقة</span></div>
-                    <div class="asma-grid" id="asmaContainer"></div>
-                </article>
-            </div>
-
-            <!-- 5. السنن النبوية -->
-            <div id="sunnah" class="content-section">
-                <article class="card">
-                    <span class="section-tag">⭐ قسم السنن النبوية</span>
-                    <h2>سنن مهجورة عن النبي صلى الله عليه وسلم</h2>
-                    <p>النوم على طهارة، نفض الفراش قبل النوم ثلاث مرات، وصلاة ركعتين بعد الوضوء... احرص على إحيائها.</p>
-                </article>
-            </div>
-
-            <!-- 6. عن المدونة -->
-            <div id="about" class="content-section">
-                <article class="card">
-                    <span class="section-tag">📖 عن المدونة</span>
-                    <h2>رسالتنا وأهدافنا</h2>
-                    <p>مساحة إيمانية خالصة لنشر الأحاديث الصحيحة وقصص الأنبياء وأسماء الله الحسنى بأسلوب مبسط ومريح.</p>
-                </article>
-            </div>
-
-            <!-- 7. تواصل معنا -->
+            <!-- 9. تواصل معنا -->
             <div id="contact" class="content-section">
                 <article class="card">
                     <span class="section-tag">📞 تواصل معنا</span>
@@ -525,34 +627,66 @@
     </footer>
 
     <script>
+        // التنقل السلس بين الأقسام
         function showSection(sectionId) {
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(sec => sec.classList.remove('active'));
-
+            document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
 
-            const menuBtns = document.querySelectorAll('.top-menu-btn');
-            menuBtns.forEach(btn => btn.classList.remove('active'));
-            
+            document.querySelectorAll('.top-menu-btn').forEach(btn => btn.classList.remove('active'));
             const activeBtn = document.getElementById('btn-' + sectionId);
             if(activeBtn) activeBtn.classList.add('active');
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // عرض قصة النبي عند الضغط عليه
-        function showProphet(prophetId) {
-            const cards = document.querySelectorAll('.prophet-story-card');
-            cards.forEach(card => card.classList.remove('active'));
-
-            const targetCard = document.getElementById('prophet-' + prophetId);
-            if(targetCard) targetCard.classList.add('active');
+        // الوضع الليلي والنهاري
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            const btn = document.getElementById('themeBtn');
+            btn.innerHTML = isDark ? '<i class="fas fa-sun"></i> الوضع النهاري' : '<i class="fas fa-moon"></i> الوضع الليلي';
         }
 
+        // عداد التسبيح التفاعلي للأذكار
+        function decreaseCounter(buttonId, maxVal) {
+            const btn = document.getElementById(buttonId);
+            let current = parseInt(btn.getAttribute('data-val') || maxVal);
+            if(current > 0) {
+                current--;
+                btn.setAttribute('data-val', current);
+                btn.innerText = `التكرار المتبقي: ${current}`;
+                if(current === 0) {
+                    btn.style.backgroundColor = "#C5A059";
+                    btn.innerText = "✨ تمت القراءة بنجاح";
+                }
+            }
+        }
+
+        // قصص الأنبياء
+        function showProphet(prophetId) {
+            document.querySelectorAll('.prophet-story-card').forEach(card => card.classList.remove('active'));
+            const target = document.getElementById('prophet-' + prophetId);
+            if(target) target.classList.add('active');
+        }
+
+        // إضافة تعليق أو خاطرة جديدة
+        function addComment() {
+            const text = document.getElementById('commentText').value.trim();
+            if(text !== "") {
+                const list = document.getElementById('commentsList');
+                const newItem = document.createElement('div');
+                newItem.className = 'comment-item';
+                newItem.innerHTML = `<strong>زائر المدونة:</strong> "${text}"`;
+                list.prepend(newItem);
+                document.getElementById('commentText').value = "";
+            }
+        }
+
+        // حديث اليوم التلقائي
         const bukhariHadiths = [
-            { text: "«إنَّما الأعمالُ بالنِّيّاتِ، وإنَّما لكلِّ امرئٍ ما نَوَى»", explanation: "الشرح المبسط: صلاح العمل وقبوله عند الله يتوقف على إخلاص النية لله وحده." },
-            { text: "«مَن كان يؤمنُ باللهِ واليومِ الآخرِ فليقلْ خيراً أو ليصمتْ»", explanation: "الشرح المبسط: حفظ اللسان بالاكتفاء بالكلام النافع أو السكوت." },
-            { text: "«لا يؤمنُ أحدُكم حتى يحبَّ لأخيه ما يحبُّ لنفسه»", explanation: "الشرح المبسط: كمال الإيمان يتمثل في حب الخير للآخرين كما تحبه لنفسك." }
+            { text: "«إنَّما الأعمالُ بالنِّيّاتِ، وإنَّما لكلِّ امرئٍ ما نَوَى»", explanation: "الشرح المبسط: صلاح العمل وقبوله عند الله يتوقف على إخلاص النية لله." },
+            { text: "«مَن كان يؤمنُ باللهِ واليومِ الآخرِ فليقلْ خيراً أو ليصمتْ»", explanation: "الشرح المبسط: حفظ اللسان بالاكتفاء بالكلام الطيب أو السكوت." },
+            { text: "«لا يؤمنُ أحدُكم حتى يحبَّ لأخيه ما يحبُّ لنفسه»", explanation: "الشرح المبسط: كمال الإيمان يتمثل في حب الخير للآخرين." }
         ];
 
         function loadDailyHadith() {
@@ -563,6 +697,7 @@
             document.getElementById("hadithExplanation").innerHTML = "<strong>الشرح المبسط:</strong> " + selected.explanation;
         }
 
+        // أسماء الله الحسنى الـ 99
         const asmaAlHusna = [
             {name: "الله", meaning: "الاسم الأعظم الجامع لمعاني الألوهية."},
             {name: "الرحمن", meaning: "الواسع الرحمة لكل خلقه."},
@@ -670,9 +805,9 @@
             let htmlContent = "";
             asmaAlHusna.forEach((item, index) => {
                 htmlContent += `
-                    <div class="asma-item">
-                        <div class="asma-name">${index + 1}. ${item.name}</div>
-                        <div class="asma-meaning">${item.meaning}</div>
+                    <div class="grid-item">
+                        <div class="grid-title">${index + 1}. ${item.name}</div>
+                        <div class="grid-desc">${item.meaning}</div>
                     </div>
                 `;
             });
