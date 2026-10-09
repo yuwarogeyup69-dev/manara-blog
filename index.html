@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="htmlTag">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منارة اليقين | مدونة إسلامية معاصرة</title>
+    <title id="pageTitle">منارة اليقين | مدونة إسلامية معاصرة</title>
     
     <!-- أكواد تحسين محركات البحث (SEO) وتوثيق جوجل -->
     <meta name="description" content="مدونة منارة اليقين، منصة إسلامية لنشر الأحاديث النبوية من صحيح البخاري، السنن المهجورة، قصص الأنبياء، وأسماء الله الحسنى ومعانيها.">
@@ -73,7 +73,7 @@
             gap: 1rem;
         }
 
-        .theme-toggle-btn {
+        .theme-toggle-btn, .lang-toggle-btn {
             background: none;
             border: 2px solid var(--secondary);
             color: var(--secondary);
@@ -168,6 +168,12 @@
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             border-right: 6px solid var(--secondary);
+        }
+        
+        /* ضبط الاتجاهات عند تفعيل اللغة الإنجليزية */
+        html[dir="ltr"] .card {
+            border-right: none;
+            border-left: 6px solid var(--secondary);
         }
 
         .section-tag {
@@ -317,6 +323,11 @@
             font-weight: 600;
             color: var(--primary);
         }
+        
+        html[dir="ltr"] .story-lesson {
+            border-right: none;
+            border-left: 5px solid var(--primary);
+        }
 
         .comments-section { margin-top: 2rem; }
         .comment-input {
@@ -338,6 +349,11 @@
             border-radius: 8px;
             border-left: 4px solid var(--secondary);
             font-size: 0.95rem;
+        }
+        
+        html[dir="ltr"] .comment-item {
+            border-left: none;
+            border-right: 4px solid var(--secondary);
         }
 
         .btn {
@@ -382,49 +398,50 @@
 <body>
 
     <nav>
-        <div class="logo">منارة اليقين</div>
+        <div class="logo" id="logoText">منارة اليقين</div>
         <div class="nav-right">
-            <button onclick="toggleDarkMode()" class="theme-toggle-btn" id="themeBtn"><i class="fas fa-moon"></i> الوضع الليلي</button>
+            <button onclick="toggleLanguage()" class="lang-toggle-btn" id="langBtn"><i class="fas fa-globe"></i> English</button>
+            <button onclick="toggleDarkMode()" class="theme-toggle-btn" id="themeBtn"><i class="fas fa-moon"></i> <span id="themeBtnText">الوضع الليلي</span></button>
         </div>
     </nav>
 
     <header>
-        <h1>مدونة منارة اليقين</h1>
-        <p>منصة إسلامية شاملة لإضاءة القلوب بنور القرآن والسنة والأذكار</p>
+        <h1 id="headerTitle">مدونة منارة اليقين</h1>
+        <p id="headerSubtitle">منصة إسلامية شاملة لإضاءة القلوب بنور القرآن والسنة والأذكار</p>
     </header>
 
     <div class="container">
         
         <!-- شريط الأقسام السريع -->
         <div class="top-menu-bar">
-            <button onclick="showSection('home')" class="top-menu-btn active" id="btn-home"><i class="fas fa-home"></i> الرئيسية</button>
-            <button onclick="showSection('hadith')" class="top-menu-btn" id="btn-hadith"><i class="fas fa-book-open"></i> أحاديث اليوم (20)</button>
-            <button onclick="showSection('dhikr')" class="top-menu-btn" id="btn-dhikr"><i class="fas fa-pray"></i> الأذكار التلقائية</button>
-            <button onclick="showSection('library')" class="top-menu-btn" id="btn-library"><i class="fas fa-books"></i> مكتبة الأحاديث</button>
-            <button onclick="showSection('prophets')" class="top-menu-btn" id="btn-prophets"><i class="fas fa-feather-alt"></i> قصص الأنبياء</button>
-            <button onclick="showSection('asma')" class="top-menu-btn" id="btn-asma"><i class="fas fa-star"></i> أسماء الله الحسنى</button>
-            <button onclick="showSection('thoughts')" class="top-menu-btn" id="btn-thoughts"><i class="fas fa-comments"></i> الخواطر</button>
-            <button onclick="showSection('contact')" class="top-menu-btn" id="btn-contact"><i class="fas fa-paper-plane"></i> تواصل معنا</button>
+            <button onclick="showSection('home')" class="top-menu-btn active" id="btn-home"><i class="fas fa-home"></i> <span class="t-home">الرئيسية</span></button>
+            <button onclick="showSection('hadith')" class="top-menu-btn" id="btn-hadith"><i class="fas fa-book-open"></i> <span class="t-hadith">أحاديث اليوم (20)</span></button>
+            <button onclick="showSection('dhikr')" class="top-menu-btn" id="btn-dhikr"><i class="fas fa-pray"></i> <span class="t-dhikr">الأذكار التلقائية</span></button>
+            <button onclick="showSection('library')" class="top-menu-btn" id="btn-library"><i class="fas fa-books"></i> <span class="t-library">مكتبة الأحاديث</span></button>
+            <button onclick="showSection('prophets')" class="top-menu-btn" id="btn-prophets"><i class="fas fa-feather-alt"></i> <span class="t-prophets">قصص الأنبياء</span></button>
+            <button onclick="showSection('asma')" class="top-menu-btn" id="btn-asma"><i class="fas fa-star"></i> <span class="t-asma">أسماء الله الحسنى</span></button>
+            <button onclick="showSection('thoughts')" class="top-menu-btn" id="btn-thoughts"><i class="fas fa-comments"></i> <span class="t-thoughts">الخواطر</span></button>
+            <button onclick="showSection('contact')" class="top-menu-btn" id="btn-contact"><i class="fas fa-paper-plane"></i> <span class="t-contact">تواصل معنا</span></button>
         </div>
 
         <main>
             <!-- 1. الرئيسية -->
             <div id="home" class="content-section active">
                 <article class="card">
-                    <span class="section-tag">🏠 مرحباً بك</span>
-                    <h2>أهلاً بك في واحة منارة اليقين المتكاملة</h2>
-                    <div class="meta"><span>📅 تحديث شامل ومستمر</span></div>
-                    <p>المدونة الآن تعرض لك 20 حديثاً تتحدث يومياً، وتتعرف تلقائياً على وقت دخولك لتعرض لك أذكار الصباح أو المساء المناسبة لوقتك، بالإضافة إلى قصص الأنبياء وأسماء الله الحسنى الـ 99 كاملة.</p>
-                    <button onclick="showSection('dhikr')" class="btn">ابدأ بقراءة أذكارك الآن</button>
+                    <span class="section-tag" id="homeTag">🏠 مرحباً بك</span>
+                    <h2 id="homeHeading">أهلاً بك في واحة منارة اليقين المتكاملة</h2>
+                    <div class="meta"><span id="homeMeta">📅 تحديث شامل ومستمر</span></div>
+                    <p id="homeDesc">المدونة الآن تعرض لك 20 حديثاً تتحدث يومياً، وتتعرف تلقائياً على وقت دخولك لتعرض لك أذكار الصباح أو المساء المناسبة لوقتك، بالإضافة إلى قصص الأنبياء وأسماء الله الحسنى الـ 99 كاملة.</p>
+                    <button onclick="showSection('dhikr')" class="btn" id="homeBtn">ابدأ بقراءة أذكارك الآن</button>
                 </article>
             </div>
 
             <!-- 2. أحاديث اليوم (20 حديث تتغير يومياً) -->
             <div id="hadith" class="content-section">
                 <article class="card">
-                    <span class="section-tag">🌟 أحاديث اليوم (20 حديثاً)</span>
-                    <h2>باقة من 20 حديثاً نبوياً تتجدد كل 24 ساعة</h2>
-                    <div class="meta"><span>📅 المرجع: صحيح البخاري ومسلم</span></div>
+                    <span class="section-tag" id="hadithTag">🌟 أحاديث اليوم (20 حديثاً)</span>
+                    <h2 id="hadithHeading">باقة من 20 حديثاً نبوياً تتجدد كل 24 ساعة</h2>
+                    <div class="meta"><span id="hadithMeta">📅 المرجع: صحيح البخاري ومسلم</span></div>
                     
                     <div id="hadithsContainer">
                         <!-- سيتم تعبئة الـ 20 حديثاً هنا عبر الجافاسكريبت -->
@@ -435,7 +452,7 @@
             <!-- 3. الأذكار (تلقائية التعرف على الوقت) -->
             <div id="dhikr" class="content-section">
                 <article class="card">
-                    <span class="section-tag">📿 الأذكار والأدعية</span>
+                    <span class="section-tag" id="dhikrTag">📿 الأذكار والأدعية</span>
                     <h2 id="dhikrTitle">أذكار الصباح والمساء</h2>
                     <div class="meta"><span id="dhikrTimeInfo">💡 الموقع يتعرف تلقائياً على وقتك ليعرض الأذكار المناسبة</span></div>
                     
@@ -448,25 +465,25 @@
             <!-- 4. مكتبة الأحاديث الشريفة المصنفة -->
             <div id="library" class="content-section">
                 <article class="card">
-                    <span class="section-tag">📚 مكتبة الأحاديث الشريفة</span>
-                    <h2>أحاديث نبوية مصنفة في شتى مناحي الحياة</h2>
+                    <span class="section-tag" id="libTag">📚 مكتبة الأحاديث الشريفة</span>
+                    <h2 id="libHeading">أحاديث نبوية مصنفة في شتى مناحي الحياة</h2>
                     
-                    <div class="grid-container">
+                    <div class="grid-container" id="libGrid">
                         <div class="grid-item">
-                            <div class="grid-title">باب الأخلاق</div>
-                            <div class="grid-desc">«إنما بُعثت لأتمم مكارم الأخلاق» <br>[رواه أحمد]</div>
+                            <div class="grid-title lib-t1">باب الأخلاق</div>
+                            <div class="grid-desc lib-d1">«إنما بُعثت لأتمم مكارم الأخلاق» <br>[رواه أحمد]</div>
                         </div>
                         <div class="grid-item">
-                            <div class="grid-title">باب الصبر</div>
-                            <div class="grid-desc">«وما أعطي أحد عطاء خيراً وأوسع من الصبر» <br>[رواه البخاري]</div>
+                            <div class="grid-title lib-t2">باب الصبر</div>
+                            <div class="grid-desc lib-d2">«وما أعطي أحد عطاء خيراً وأوسع من الصبر» <br>[رواه البخاري]</div>
                         </div>
                         <div class="grid-item">
-                            <div class="grid-title">باب الصلاة</div>
-                            <div class="grid-desc">«أول ما يحاسب به العبد يوم القيامة الصلاة» <br>[رواه الترمذي]</div>
+                            <div class="grid-title lib-t3">باب الصلاة</div>
+                            <div class="grid-desc lib-d3">«أول ما يحاسب به العبد يوم القيامة الصلاة» <br>[رواه الترمذي]</div>
                         </div>
                         <div class="grid-item">
-                            <div class="grid-title">باب صلة الرحم</div>
-                            <div class="grid-desc">«من أحب أن يُبسط له في رزقه فليصل رحمه» <br>[رواه البخاري]</div>
+                            <div class="grid-title lib-t4">باب صلة الرحم</div>
+                            <div class="grid-desc lib-d4">«من أحب أن يُبسط له في رزقه فليصل رحمه» <br>[رواه البخاري]</div>
                         </div>
                     </div>
                 </article>
@@ -475,41 +492,41 @@
             <!-- 5. قصص الأنبياء -->
             <div id="prophets" class="content-section">
                 <article class="card">
-                    <span class="section-tag">📖 قصص الأنبياء والرسل</span>
-                    <h2>عبر ودروس من قصص القرآن الكريم</h2>
+                    <span class="section-tag" id="prophetTag">📖 قصص الأنبياء والرسل</span>
+                    <h2 id="prophetHeading">عبر ودروس من قصص القرآن الكريم</h2>
                     
                     <div class="prophets-list">
-                        <button class="prophet-btn" onclick="showProphet('adam')">آدم عليه السلام</button>
-                        <button class="prophet-btn" onclick="showProphet('nuh')">نوح عليه السلام</button>
-                        <button class="prophet-btn" onclick="showProphet('ibrahim')">إبراهيم عليه السلام</button>
-                        <button class="prophet-btn" onclick="showProphet('musa')">موسى عليه السلام</button>
-                        <button class="prophet-btn" onclick="showProphet('yusuf')">يوسف عليه السلام</button>
+                        <button class="prophet-btn" onclick="showProphet('adam')" id="pBtnAdam">آدم عليه السلام</button>
+                        <button class="prophet-btn" onclick="showProphet('nuh')" id="pBtnNuh">نوح عليه السلام</button>
+                        <button class="prophet-btn" onclick="showProphet('ibrahim')" id="pBtnIbrahim">إبراهيم عليه السلام</button>
+                        <button class="prophet-btn" onclick="showProphet('musa')" id="pBtnMusa">موسى عليه السلام</button>
+                        <button class="prophet-btn" onclick="showProphet('yusuf')" id="pBtnYusuf">يوسف عليه السلام</button>
                     </div>
 
                     <div id="prophet-adam" class="prophet-story-card">
-                        <h3>قصة آدم أبو البشر عليه السلام</h3>
-                        <p>خلق الله آدم وأسكنه الجنة، ووسوس له إبليس فأكل من الشجرة فتاب الله عليه وهبط للأرض لتعميرها.</p>
-                        <div class="story-lesson"><strong>الخلاصة:</strong> التوبة الصادقة تمحو الذنب والحذر واجب من وسوسة الشيطان.</div>
+                        <h3 class="p-adam-title">قصة آدم أبو البشر عليه السلام</h3>
+                        <p class="p-adam-desc">خلق الله آدم وأسكنه الجنة، ووسوس له إبليس فأكل من الشجرة فتاب الله عليه وهبط للأرض لتعميرها.</p>
+                        <div class="story-lesson p-adam-lesson"><strong>الخلاصة:</strong> التوبة الصادقة تمحو الذنب والحذر واجب من وسوسة الشيطان.</div>
                     </div>
                     <div id="prophet-nuh" class="prophet-story-card">
-                        <h3>قصة نوح عليه السلام</h3>
-                        <p>دعا قومه ألف سنة إلا خمسين عاماً صابراً محتسباً، فنجاه الله في السفينة وأغرق الكافرين.</p>
-                        <div class="story-lesson"><strong>الخلاصة:</strong> الصبر العظيم في الدعوة والثقة المطلقة بنصر الله.</div>
+                        <h3 class="p-nuh-title">قصة نوح عليه السلام</h3>
+                        <p class="p-nuh-desc">دعا قومه ألف سنة إلا خمسين عاماً صابراً محتسباً، فنجاه الله في السفينة وأغرق الكافرين.</p>
+                        <div class="story-lesson p-nuh-lesson"><strong>الخلاصة:</strong> الصبر العظيم في الدعوة والثقة المطلقة بنصر الله.</div>
                     </div>
                     <div id="prophet-ibrahim" class="prophet-story-card">
-                        <h3>قصة إبراهيم خليل الله عليه السلام</h3>
-                        <p>حارب الأصنام فألقوه في النار فجعلها الله برداً وسلاماً، واستسلم لأمر ربه بذبح ابنه ففداه بعظيم.</p>
-                        <div class="story-lesson"><strong>الخلاصة:</strong> التوكل التام والتضحية في سبيل العقيدة.</div>
+                        <h3 class="p-ibrahim-title">قصة إبراهيم خليل الله عليه السلام</h3>
+                        <p class="p-ibrahim-desc">حارب الأصنام فألقوه في النار فجعلها الله برداً وسلاماً، واستسلم لأمر ربه بذبح ابنه ففداه بعظيم.</p>
+                        <div class="story-lesson p-ibrahim-lesson"><strong>الخلاصة:</strong> التوكل التام والتضحية في سبيل العقيدة.</div>
                     </div>
                     <div id="prophet-musa" class="prophet-story-card">
-                        <h3>قصة موسى كليم الله عليه السلام</h3>
-                        <p>تربى في قصر فرعون ثم نجاه الله وشق له البحر بعصاه وأهلك الطاغية.</p>
-                        <div class="story-lesson"><strong>الخلاصة:</strong> تدبير الله فوق كل تدبير والحق ينتصر دائماً.</div>
+                        <h3 class="p-musa-title">قصة موسى كليم الله عليه السلام</h3>
+                        <p class="p-musa-desc">تربى في قصر فرعون ثم نجاه الله وشق له البحر بعصاه وأهلك الطاغية.</p>
+                        <div class="story-lesson p-musa-lesson"><strong>الخلاصة:</strong> تدبير الله فوق كل تدبير والحق ينتصر دائماً.</div>
                     </div>
                     <div id="prophet-yusuf" class="prophet-story-card">
-                        <h3>قصة يوسف الصديق عليه السلام</h3>
-                        <p>ألقاه إخوته في البئر فصبر وعفّ عن الفتنة حتى تولى خزائن مصر.</p>
-                        <div class="story-lesson"><strong>الخلاصة:</strong> العفة والصبر الجميل عاقبتهما الفرج والعز.</div>
+                        <h3 class="p-yusuf-title">قصة يوسف الصديق عليه السلام</h3>
+                        <p class="p-yusuf-desc">ألقاه إخوته في البئر فصبر وعفّ عن الفتنة حتى تولى خزائن مصر.</p>
+                        <div class="story-lesson p-yusuf-lesson"><strong>الخلاصة:</strong> العفة والصبر الجميل عاقبتهما الفرج والعز.</div>
                     </div>
                 </article>
             </div>
@@ -517,8 +534,8 @@
             <!-- 6. أسماء الله الحسنى (بالكامل 99 اسم) -->
             <div id="asma" class="content-section">
                 <article class="card">
-                    <span class="section-tag">✨ أسماء الله الحسنى</span>
-                    <h2>أسماء الله الـ 99 ومعانيها الميسرة</h2>
+                    <span class="section-tag" id="asmaTag">✨ أسماء الله الحسنى</span>
+                    <h2 id="asmaHeading">أسماء الله الـ 99 ومعانيها الميسرة</h2>
                     <div class="grid-container" id="asmaContainer"></div>
                 </article>
             </div>
@@ -526,13 +543,13 @@
             <!-- 7. الخواطر والتعليقات -->
             <div id="thoughts" class="content-section">
                 <article class="card">
-                    <span class="section-tag">💬 مساحة الخواطر الإيمانية</span>
-                    <h2>شاركنا خاطرتك أو رسالتك الطيبة</h2>
+                    <span class="section-tag" id="thoughtTag">💬 مساحة الخواطر الإيمانية</span>
+                    <h2 id="thoughtHeading">شاركنا خاطرتك أو رسالتك الطيبة</h2>
                     <div class="comments-section">
                         <textarea id="commentText" class="comment-input" rows="3" placeholder="اكتب خاطرتك أو دعاءً جميلاً هنا..."></textarea>
-                        <button class="btn" onclick="addComment()">نشر الخاطرة</button>
+                        <button class="btn" id="commentBtn" onclick="addComment()">نشر الخاطرة</button>
                         <div class="comments-list" id="commentsList">
-                            <div class="comment-item"><strong>زائر كريم:</strong> "سبحان الله وبحمده سبحان الله العظيم."</div>
+                            <div class="comment-item"><strong id="defaultCommentAuthor">زائر كريم:</strong> <span id="defaultCommentText">"سبحان الله وبحمده سبحان الله العظيم."</span></div>
                         </div>
                     </div>
                 </article>
@@ -541,13 +558,13 @@
             <!-- 8. تواصل معنا -->
             <div id="contact" class="content-section">
                 <article class="card">
-                    <span class="section-tag">📞 تواصل معنا</span>
-                    <h2>قنوات الاتصال المباشر</h2>
+                    <span class="section-tag" id="contactTag">📞 تواصل معنا</span>
+                    <h2 id="contactHeading">قنوات الاتصال المباشر</h2>
                     <div class="social-links" style="margin-top: 1.5rem;">
-                        <a href="https://wa.me/+249993775047" target="_blank" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i> مراسلة عبر الواتساب</a>
-                        <a href="https://www.facebook.com/mohammed.abdallah.425685" target="_blank" class="social-btn facebook"><i class="fab fa-facebook-f"></i> تابعني على فيسبوك</a>
-                        <a href="https://www.instagram.com/mohammed44133?cplk=ampld3U4bnhlZ29s" target="_blank" class="social-btn instagram"><i class="fab fa-instagram"></i> تابعني على إنستغرام</a>
-                        <a href="mailto:mohammed425685@gmail.com" class="social-btn email"><i class="fas fa-envelope"></i> راسلني عبر البريد الإلكتروني</a>
+                        <a href="https://wa.me/+249993775047" target="_blank" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i> <span id="sWa">مراسلة عبر الواتساب</span></a>
+                        <a href="https://www.facebook.com/mohammed.abdallah.425685" target="_blank" class="social-btn facebook"><i class="fab fa-facebook-f"></i> <span id="sFb">تابعني على فيسبوك</span></a>
+                        <a href="https://www.instagram.com/mohammed44133?cplk=ampld3U4bnhlZ29s" target="_blank" class="social-btn instagram"><i class="fab fa-instagram"></i> <span id="sIg">تابعني على إنستغرام</span></a>
+                        <a href="mailto:mohammed425685@gmail.com" class="social-btn email"><i class="fas fa-envelope"></i> <span id="sEmail">راسلني عبر البريد الإلكتروني</span></a>
                     </div>
                 </article>
             </div>
@@ -555,10 +572,262 @@
     </div>
 
     <footer>
-        <p>جميع الحقوق محفوظة © 2026 - مدونة منارة اليقين الإسلامية</p>
+        <p id="footerText">جميع الحقوق محفوظة © 2026 - مدونة منارة اليقين الإسلامية</p>
     </footer>
 
     <script>
+        let currentLang = 'ar';
+
+        const translations = {
+            ar: {
+                pageTitle: "منارة اليقين | مدونة إسلامية معاصرة",
+                logo: "منارة اليقين",
+                themeText: "الوضع الليلي",
+                themeTextDark: "الوضع النهاري",
+                langBtnText: "English",
+                headerTitle: "مدونة منارة اليقين",
+                headerSubtitle: "منصة إسلامية شاملة لإضاءة القلوب بنور القرآن والسنة والأذكار",
+                menu: {
+                    home: "الرئيسية",
+                    hadith: "أحاديث اليوم (20)",
+                    dhikr: "الأذكار التلقائية",
+                    library: "مكتبة الأحاديث",
+                    prophets: "قصص الأنبياء",
+                    asma: "أسماء الله الحسنى",
+                    thoughts: "الخواطر",
+                    contact: "تواصل معنا"
+                },
+                homeSec: {
+                    tag: "🏠 مرحباً بك",
+                    heading: "أهلاً بك في واحة منارة اليقين المتكاملة",
+                    meta: "📅 تحديث شامل ومستمر",
+                    desc: "المدونة الآن تعرض لك 20 حديثاً تتحدث يومياً، وتتعرف تلقائياً على وقت دخولك لتعرض لك أذكار الصباح أو المساء المناسبة لوقتك، بالإضافة إلى قصص الأنبياء وأسماء الله الحسنى الـ 99 كاملة.",
+                    btn: "ابدأ بقراءة أذكارك الآن"
+                },
+                hadithSec: {
+                    tag: "🌟 أحاديث اليوم (20 حديثاً)",
+                    heading: "باقة من 20 حديثاً نبوياً تتجدد كل 24 ساعة",
+                    meta: "📅 المرجع: صحيح البخاري ومسلم"
+                },
+                dhikrSec: {
+                    tag: "📿 الأذكار والأدعية",
+                    timeInfo: "💡 الموقع يتعرف تلقائياً على وقتك ليعرض الأذكار المناسبة"
+                },
+                libSec: {
+                    tag: "📚 مكتبة الأحاديث الشريفة",
+                    heading: "أحاديث نبوية مصنفة في شتى مناحي الحياة",
+                    items: [
+                        {t: "باب الأخلاق", d: "«إنما بُعثت لأتمم مكارم الأخلاق» <br>[رواه أحمد]"},
+                        {t: "باب الصبر", d: "«وما أعطي أحد عطاء خيراً وأوسع من الصبر» <br>[رواه البخاري]"},
+                        {t: "باب الصلاة", d: "«أول ما يحاسب به العبد يوم القيامة الصلاة» <br>[رواه الترمذي]"},
+                        {t: "باب صلة الرحم", d: "«من أحب أن يُبسط له في رزقه فليصل رحمه» <br>[رواه البخاري]"}
+                    ]
+                },
+                prophetSec: {
+                    tag: "📖 قصص الأنبياء والرسل",
+                    heading: "عبر ودروس من قصص القرآن الكريم",
+                    buttons: ["آدم عليه السلام", "نوح عليه السلام", "إبراهيم عليه السلام", "موسى عليه السلام", "يوسف عليه السلام"],
+                    stories: [
+                        {title: "قصة آدم أبو البشر عليه السلام", desc: "خلق الله آدم وأسكنه الجنة، ووسوس له إبليس فأكل من الشجرة فتاب الله عليه وهبط للأرض لتعميرها.", lesson: "التوبة الصادقة تمحو الذنب والحذر واجب من وسوسة الشيطان."},
+                        {title: "قصة نوح عليه السلام", desc: "دعا قومه ألف سنة إلا خمسين عاماً صابراً محتسباً، فنجاه الله في السفينة وأغرق الكافرين.", lesson: "الصبر العظيم في الدعوة والثقة المطلقة بنصر الله."},
+                        {title: "قصة إبراهيم خليل الله عليه السلام", desc: "حارب الأصنام فألقوه في النار فجعلها الله برداً وسلاماً، واستسلم لأمر ربه بذبح ابنه ففداه بعظيم.", lesson: "التوكل التام والتضحية في سبيل العقيدة."},
+                        {title: "قصة موسى كليم الله عليه السلام", desc: "تربى في قصر فرعون ثم نجاه الله وشق له البحر بعصاه وأهلك الطاغية.", lesson: "تدبير الله فوق كل تدبير والحق ينتصر دائماً."},
+                        {title: "قصة يوسف الصديق عليه السلام", desc: "ألقاه إخوته في البئر فصبر وعفّ عن الفتنة حتى تولى خزائن مصر.", lesson: "العفة والصبر الجميل عاقبتهما الفرج والعز."}
+                    ]
+                },
+                asmaSec: {
+                    tag: "✨ أسماء الله الحسنى",
+                    heading: "أسماء الله الـ 99 ومعانيها الميسرة"
+                },
+                thoughtSec: {
+                    tag: "💬 مساحة الخواطر الإيمانية",
+                    heading: "شاركنا خاطرتك أو رسالتك الطيبة",
+                    placeholder: "اكتب خاطرتك أو دعاءً جميلاً هنا...",
+                    btn: "نشر الخاطرة",
+                    author: "زائر كريم:",
+                    comment: "\"سبحان الله وبحمده سبحان الله العظيم.\""
+                },
+                contactSec: {
+                    tag: "📞 تواصل معنا",
+                    heading: "قنوات الاتصال المباشر",
+                    wa: "مراسلة عبر الواتساب",
+                    fb: "تابعني على فيسبوك",
+                    ig: "تابعني على إنستغرام",
+                    email: "راسلني عبر البريد الإلكتروني"
+                },
+                footer: "جميع الحقوق محفوظة © 2026 - مدونة منارة اليقين الإسلامية"
+            },
+            en: {
+                pageTitle: "Manarat Al-Yaqeen | Contemporary Islamic Blog",
+                logo: "Manarat Al-Yaqeen",
+                themeText: "Dark Mode",
+                themeTextDark: "Light Mode",
+                langBtnText: "العربية",
+                headerTitle: "Manarat Al-Yaqeen Blog",
+                headerSubtitle: "A comprehensive Islamic platform to illuminate hearts with the light of Quran, Sunnah, and Adhkar",
+                menu: {
+                    home: "Home",
+                    hadith: "Daily Hadiths (20)",
+                    dhikr: "Auto Adhkar",
+                    library: "Hadith Library",
+                    prophets: "Prophets' Stories",
+                    asma: "Beautiful Names of Allah",
+                    thoughts: "Reflections",
+                    contact: "Contact Us"
+                },
+                homeSec: {
+                    tag: "🏠 Welcome",
+                    heading: "Welcome to the Comprehensive Manarat Al-Yaqeen Oasis",
+                    meta: "📅 Comprehensive and Continuous Update",
+                    desc: "The blog now displays 20 hadiths updated daily, automatically recognizes your visiting time to display appropriate morning or evening adhkar, in addition to prophets' stories and all 99 names of Allah.",
+                    btn: "Start Reading Adhkar Now"
+                },
+                hadithSec: {
+                    tag: "🌟 Daily Hadiths (20 Hadiths)",
+                    heading: "A package of 20 Prophetic Hadiths renewed every 24 hours",
+                    meta: "📅 Reference: Sahih Al-Bukhari & Muslim"
+                },
+                dhikrSec: {
+                    tag: "📿 Adhkar and Supplications",
+                    timeInfo: "💡 The site automatically detects your time to display suitable adhkar"
+                },
+                libSec: {
+                    tag: "📚 Noble Hadith Library",
+                    heading: "Prophetic Hadiths categorized across various walks of life",
+                    items: [
+                        {t: "Chapter of Morals", d: "\"I was sent only to perfect good morals.\" <br>[Ahmad]"},
+                        {t: "Chapter of Patience", d: "\"No one has been given a gift better and more encompassing than patience.\" <br>[Al-Bukhari]"},
+                        {t: "Chapter of Prayer", d: "\"The first thing a servant will be judged for on the Day of Resurrection is prayer.\" <br>[At-Tirmidhi]"},
+                        {t: "Chapter of Kinship", d: "\"Whoever loves that his provision be expanded should maintain his ties of kinship.\" <br>[Al-Bukhari]"}
+                    ]
+                },
+                prophetSec: {
+                    tag: "📖 Stories of Prophets and Messengers",
+                    heading: "Lessons and Morals from the Holy Quran Stories",
+                    buttons: ["Adam (AS)", "Noah (AS)", "Abraham (AS)", "Moses (AS)", "Joseph (AS)"],
+                    stories: [
+                        {title: "The Story of Adam (AS)", desc: "Allah created Adam and settled him in Paradise. Satan whispered to him, so he ate from the tree, and Allah forgave him and sent him down to earth.", lesson: "Sincere repentance erases sin, and caution against Satan's whispers is obligatory."},
+                        {title: "The Story of Noah (AS)", desc: "He called his people for a thousand years less fifty years, patient and steadfast, and Allah saved him in the ark and drowned the disbelievers.", lesson: "Great patience in calling to Allah and absolute trust in His victory."},
+                        {title: "The Story of Abraham (AS)", desc: "He fought the idols, so they threw him into the fire, which Allah made cool and safe for him, and he submitted to his Lord's command to sacrifice his son.", lesson: "Complete reliance and sacrifice for the sake of faith."},
+                        {title: "The Story of Moses (AS)", desc: "He was raised in Pharaoh's palace, then Allah saved him, split the sea with his staff, and destroyed the tyrant.", lesson: "Allah's planning is above all planning, and truth always triumphs."},
+                        {title: "The Story of Joseph (AS)", desc: "His brothers threw him in the well, so he was patient and chaste against temptation until he ruled the treasuries of Egypt.", lesson: "Chastity and beautiful patience result in relief and honor."}
+                    ]
+                },
+                asmaSec: {
+                    tag: "✨ Beautiful Names of Allah",
+                    heading: "The 99 Names of Allah and Their Simplified Meanings"
+                },
+                thoughtSec: {
+                    tag: "💬 Space for Faith Reflections",
+                    heading: "Share your reflection or kind message",
+                    placeholder: "Write your reflection or a beautiful prayer here...",
+                    btn: "Publish Reflection",
+                    author: "Honored Visitor:",
+                    comment: "\"Glory be to Allah and by His praise, Glory be to Allah the Almighty.\""
+                },
+                contactSec: {
+                    tag: "📞 Contact Us",
+                    heading: "Direct Communication Channels",
+                    wa: "Message via WhatsApp",
+                    fb: "Follow me on Facebook",
+                    ig: "Follow me on Instagram",
+                    email: "Email me directly"
+                },
+                footer: "All Rights Reserved © 2026 - Manarat Al-Yaqeen Islamic Blog"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            const t = translations[currentLang];
+            
+            document.getElementById('htmlTag').setAttribute('lang', currentLang);
+            document.getElementById('htmlTag').setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+            
+            document.getElementById('pageTitle').innerText = t.pageTitle;
+            document.getElementById('logoText').innerText = t.logo;
+            document.getElementById('langBtn').innerHTML = `<i class="fas fa-globe"></i> ${t.langBtnText}`;
+            
+            const isDark = document.body.classList.contains('dark-mode');
+            document.getElementById('themeBtnText').innerText = isDark ? t.themeTextDark : t.themeText;
+            
+            document.getElementById('headerTitle').innerText = t.headerTitle;
+            document.getElementById('headerSubtitle').innerText = t.headerSubtitle;
+            
+            // القائمة العلوية
+            document.querySelector('.t-home').innerText = t.menu.home;
+            document.querySelector('.t-hadith').innerText = t.menu.hadith;
+            document.querySelector('.t-dhikr').innerText = t.menu.dhikr;
+            document.querySelector('.t-library').innerText = t.menu.library;
+            document.querySelector('.t-prophets').innerText = t.menu.prophets;
+            document.querySelector('.t-asma').innerText = t.menu.asma;
+            document.querySelector('.t-thoughts').innerText = t.menu.thoughts;
+            document.querySelector('.t-contact').innerText = t.menu.contact;
+            
+            // الرئيسية
+            document.getElementById('homeTag').innerText = t.homeSec.tag;
+            document.getElementById('homeHeading').innerText = t.homeSec.heading;
+            document.getElementById('homeMeta').innerText = t.homeSec.meta;
+            document.getElementById('homeDesc').innerText = t.homeSec.desc;
+            document.getElementById('homeBtn').innerText = t.homeSec.btn;
+            
+            // أحاديث اليوم
+            document.getElementById('hadithTag').innerText = t.hadithSec.tag;
+            document.getElementById('hadithHeading').innerText = t.hadithSec.heading;
+            document.getElementById('hadithMeta').innerText = t.hadithSec.meta;
+            
+            // الأذكار
+            document.getElementById('dhikrTag').innerText = t.dhikrSec.tag;
+            document.getElementById('dhikrTimeInfo').innerText = t.dhikrSec.timeInfo;
+            loadAdhkarByTime();
+            
+            // المكتبة
+            document.getElementById('libTag').innerText = t.libSec.tag;
+            document.getElementById('libHeading').innerText = t.libSec.heading;
+            const libItems = document.querySelectorAll('#libGrid .grid-item');
+            t.libSec.items.forEach((item, i) => {
+                libItems[i].querySelector('.grid-title').innerText = item.t;
+                libItems[i].querySelector('.grid-desc').innerHTML = item.d;
+            });
+            
+            // قصص الأنبياء
+            document.getElementById('prophetTag').innerText = t.prophetSec.tag;
+            document.getElementById('prophetHeading').innerText = t.prophetSec.heading;
+            const pBtns = document.querySelectorAll('.prophets-list .prophet-btn');
+            t.prophetSec.buttons.forEach((bText, i) => { pBtns[i].innerText = bText; });
+            
+            const pStories = ['adam', 'nuh', 'ibrahim', 'musa', 'yusuf'];
+            pStories.forEach((id, i) => {
+                const card = document.getElementById('prophet-' + id);
+                card.querySelector('h3').innerText = t.prophetSec.stories[i].title;
+                card.querySelector('p').innerText = t.prophetSec.stories[i].desc;
+                card.querySelector('.story-lesson').innerHTML = `<strong>${currentLang === 'ar' ? 'الخلاصة:' : 'Lesson:'}</strong> ${t.prophetSec.stories[i].lesson}`;
+            });
+            
+            // أسماء الله الحسنى
+            document.getElementById('asmaTag').innerText = t.asmaSec.tag;
+            document.getElementById('asmaHeading').innerText = t.asmaSec.heading;
+            
+            // الخواطر
+            document.getElementById('thoughtTag').innerText = t.thoughtSec.tag;
+            document.getElementById('thoughtHeading').innerText = t.thoughtSec.heading;
+            document.getElementById('commentText').placeholder = t.thoughtSec.placeholder;
+            document.getElementById('commentBtn').innerText = t.thoughtSec.btn;
+            document.getElementById('defaultCommentAuthor').innerText = t.thoughtSec.author;
+            document.getElementById('defaultCommentText').innerText = t.thoughtSec.comment;
+            
+            // التواصل
+            document.getElementById('contactTag').innerText = t.contactSec.tag;
+            document.getElementById('contactHeading').innerText = t.contactSec.heading;
+            document.getElementById('sWa').innerText = t.contactSec.wa;
+            document.getElementById('sFb').innerText = t.contactSec.fb;
+            document.getElementById('sIg').innerText = t.contactSec.ig;
+            document.getElementById('sEmail').innerText = t.contactSec.email;
+            
+            // الفوتر
+            document.getElementById('footerText').innerText = t.footer;
+        }
+
         // التنقل بين الأقسام
         function showSection(sectionId) {
             document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
@@ -573,8 +842,11 @@
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
-            const btn = document.getElementById('themeBtn');
-            btn.innerHTML = isDark ? '<i class="fas fa-sun"></i> الوضع النهاري' : '<i class="fas fa-moon"></i> الوضع الليلي';
+            const t = translations[currentLang];
+            const btnText = document.getElementById('themeBtnText');
+            btnText.innerText = isDark ? t.themeTextDark : t.themeText;
+            const btnIcon = document.querySelector('#themeBtn i');
+            btnIcon.className = isDark ? "fas fa-sun" : "fas fa-moon";
         }
 
         // عداد الأذكار
@@ -584,10 +856,10 @@
             if(current > 0) {
                 current--;
                 btn.setAttribute('data-val', current);
-                btn.innerText = `التكرار المتبقي: ${current}`;
+                btn.innerText = currentLang === 'ar' ? `التكرار المتبقي: ${current}` : `Remaining Count: ${current}`;
                 if(current === 0) {
                     btn.style.backgroundColor = "#C5A059";
-                    btn.innerText = "✨ تمت القراءة بنجاح";
+                    btn.innerText = currentLang === 'ar' ? "✨ تمت القراءة بنجاح" : "✨ Read Successfully";
                 }
             }
         }
@@ -606,7 +878,8 @@
                 const list = document.getElementById('commentsList');
                 const newItem = document.createElement('div');
                 newItem.className = 'comment-item';
-                newItem.innerHTML = `<strong>زائر المدونة:</strong> "${text}"`;
+                const authorLabel = currentLang === 'ar' ? 'زائر المدونة:' : 'Blog Visitor:';
+                newItem.innerHTML = `<strong>${authorLabel}</strong> "${text}"`;
                 list.prepend(newItem);
                 document.getElementById('commentText').value = "";
             }
@@ -619,7 +892,7 @@
             { text: "«أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ...»", fadl: "شكر لنعمة الصباح والملك لله.", count: 1 },
             { text: "«اللَّهُمَّ أَنْتَ رَبِّي لا إلهَ إلا أنتَ خَلَقْتَنِي وأنا عَبْدُكَ...»", fadl: "سيد الاستغفار؛ من قاله موقناً فمات دخل الجنة.", count: 1 },
             { text: "«بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ في الأرْضِ وَلَا في السَّمَاءِ»", fadl: "لم يضره شيء في ذلك اليوم.", count: 3 },
-            { text: "«رَضِيتُ بِاللَّهِ رَبَّاً، وَبِالْإِسْلَامِ دِيناً، وَبِمُحَمَّدٍ نَبِيّاً»", fadl: "كان حقاً على الله أن يرضيه.", count: 3 },
+            { text: "«رَضِيتُ بِاللَّهِ رَبَّاً، وَبِالْإِسْلَامِ دِيناً، وَبُِمُحَمَّدٍ نَبِيّاً»", fadl: "كان حقاً على الله أن يرضيه.", count: 3 },
             { text: "«سُبْحَانَ اللَّهِ وَبِحَمْدِهِ»", fadl: "حطت خطاياه وإن كانت مثل زبد البحر.", count: 100 }
         ];
 
@@ -636,19 +909,26 @@
         function loadAdhkarByTime() {
             const hour = new Date().getHours();
             const isMorning = hour >= 3 && hour < 15;
-            document.getElementById("dhikrTitle").innerText = isMorning ? "أذكار الصباح" : "أذكار المساء";
-            document.getElementById("dhikrTimeInfo").innerText = isMorning ? "☀️ بتوقيتك الآن: وقت أذكار الصباح" : "🌙 بتوقيتك الآن: وقت أذكار المساء";
+            
+            if(currentLang === 'ar') {
+                document.getElementById("dhikrTitle").innerText = isMorning ? "أذكار الصباح" : "أذكار المساء";
+                document.getElementById("dhikrTimeInfo").innerText = isMorning ? "☀️ بتوقيتك الآن: وقت أذكار الصباح" : "🌙 بتوقيتك الآن: وقت أذكار المساء";
+            } else {
+                document.getElementById("dhikrTitle").innerText = isMorning ? "Morning Adhkar" : "Evening Adhkar";
+                document.getElementById("dhikrTimeInfo").innerText = isMorning ? "☀️ Current Time: Morning Adhkar Time" : "🌙 Current Time: Evening Adhkar Time";
+            }
             
             const adhkarList = isMorning ? morningAdhkar : eveningAdhkar;
             const container = document.getElementById("dhikrContainer");
             let html = "";
             adhkarList.forEach((dhikr, index) => {
                 const btnId = `dhikrBtn_${index}`;
+                const countText = currentLang === 'ar' ? `التكرار المتبقي: ${dhikr.count}` : `Remaining Count: ${dhikr.count}`;
                 html += `
                     <div class="dhikr-box">
                         <div class="dhikr-text">${dhikr.text}</div>
                         <p>${dhikr.fadl}</p>
-                        <button class="counter-badge" id="${btnId}" onclick="decreaseCounter('${btnId}', ${dhikr.count})">التكرار المتبقي: ${dhikr.count}</button>
+                        <button class="counter-badge" id="${btnId}" onclick="decreaseCounter('${btnId}', ${dhikr.count})">${countText}</button>
                     </div>
                 `;
             });
@@ -693,138 +973,8 @@
             for(let i = 0; i < 20; i++) {
                 let currentIndex = (startIndex + i) % hadithsDatabase.length;
                 let hadith = hadithsDatabase[currentIndex];
+                const explanationLabel = currentLang === 'ar' ? 'الشرح:' : 'Explanation:';
                 html += `
                     <div class="daily-hadith-box">
                         <div class="daily-hadith-text">${i + 1}. ${hadith.text}</div>
-                        <div class="hadith-explanation"><strong>الشرح:</strong> ${hadith.explanation}</div>
-                    </div>
-                `;
-            }
-            container.innerHTML = html;
-        }
-
-        // أسماء الله الحسنى الـ 99 كاملة
-        const asmaAlHusna = [
-            {name: "الله", meaning: "الاسم الأعظم الجامع لجميع معاني الألوهية."},
-            {name: "الرحمن", meaning: "الواسع الرحمة الذي وسعت رحمته كل شيء."},
-            {name: "الرحيم", meaning: "الموصل رحمانيته لمن يشاء من عباده."},
-            {name: "الملك", meaning: "المتصرف في ملكه بلا زوال ولا منزع."},
-            {name: "القدوس", meaning: "المنزه عن كل نقص وعيب."},
-            {name: "السلام", meaning: "الذي سلم من كل عفة وآفة."},
-            {name: "المؤمن", meaning: "الذي أمن عباده من ظلمه ومكر خلقه."},
-            {name: "المهيمن", meaning: "الرقيب الحافظ لأعمال عباده."},
-            {name: "العزيز", meaning: "الغالب القاهر الذي لا يُغلب."},
-            {name: "الجبار", meaning: "الذي يجبر الكسير ويقهر العتاة."},
-            {name: "المتكبر", meaning: "المتعالي عن صفات الخلق."},
-            {name: "الخالق", meaning: "المقدر للأشياء على غير مثال سابق."},
-            {name: "البارئ", meaning: "المبرز للأشياء من العدم إلى الوجود."},
-            {name: "المصور", meaning: "المعطي لكل خلق صوره وهيئته."},
-            {name: "الغفار", meaning: "الساتر لذنوب عباده مراراً وتكراراً."},
-            {name: "القهار", meaning: "الغالب لكل شيء خاضع لقدرته."},
-            {name: "الوهاب", meaning: "المعطي للعطايا بلا عوض."},
-            {name: "الرزاق", meaning: "المقوت لخلقه ومقدر أرزاقهم."},
-            {name: "الفتاح", meaning: "الذي يفتح أبواب الرحمة والرزق."},
-            {name: "العليم", meaning: "المحيط بكل شيء علماً ظاهراً وباطناً."},
-            {name: "القابض", meaning: "المقيد لرزقه وفضله عمن يشاء حكمةً."},
-            {name: "الباسط", meaning: "الموسع لرزقه وفضله على من يشاء."},
-            {name: "الخافض", meaning: "المسفل للظالمين والمتكبرين."},
-            {name: "الرافع", meaning: "المعطي للرفعة لأوليائه والمؤمنين."},
-            {name: "المعز", meaning: "المتفضل بالعزة لمن أطاعه."},
-            {name: "المذل", meaning: "الذي يذل من عصاه وتمرد عليه."},
-            {name: "السميع", meaning: "المحيط سمعُه بكل الأصوات."},
-            {name: "البصير", meaning: "المبصر لكل دقائق الأشياء وخفاياها."},
-            {name: "الحكم", meaning: "الفاصل بين الحق والباطل بالعدل المطلق."},
-            {name: "العدل", meaning: "المنزه عن الظلم في أقواله وأفعاله."},
-            {name: "اللطيف", meaning: "الرفيق بعباده المحسن إليهم."},
-            {name: "الخبير", meaning: "العالم ببواطن الأمور وكنهها."},
-            {name: "الحليم", meaning: "الذي لا يعجل بالعقوبة على العصاة."},
-            {name: "العظيم", meaning: "الذي تعظم القلوب جلاله وكبرياءه."},
-            {name: "الغفور", meaning: "الساتر لذنوب عباده العافي عنها."},
-            {name: "الشكور", meaning: "المثيب على القليل من العمل بالجزيل من الأجر."},
-            {name: "العلي", meaning: "المتعالي بذاته وصفاته عن كل نقص."},
-            {name: "الكبير", meaning: "المتعظم في ذاته وصفاته عن الشبيه."},
-            {name: "الحفيظ", meaning: "المانع لكل ما يضر خلقه وحافظهم."},
-            {name: "المقيت", meaning: "الموصل للأقوات والأرزاق لأجساد خلقه."},
-            {name: "الحسيب", meaning: "الكافي لعباده والمعطي لهم ما يكفيهم."},
-            {name: "الجليل", meaning: "المتصف بصفات الجلال والعظمة."},
-            {name: "الكريم", meaning: "الكثير الخير العفو عند المقدرة."},
-            {name: "الرقيب", meaning: "المطلع على السرائر وحركات الجوارح."},
-            {name: "المجيب", meaning: "الذي يجيب دعوة الداعي إذا دعاه."},
-            {name: "الواسع", meaning: "الذي وسع علمه وفضله كل شيء."},
-            {name: "الحكيم", meaning: "الذي لا يخرج شيء عن حكمته وتدبيره."},
-            {name: "الودود", meaning: "المحب لعباده المؤمنين والمحبوب منهم."},
-            {name: "المجيد", meaning: "البالغ الغاية في المجد والعظمة."},
-            {name: "الباعث", meaning: "المحيي للموتى يوم القيامة."},
-            {name: "الشهيد", meaning: "الحاضر الذي لا يغيب عنه شيء."},
-            {name: "الحق", meaning: "الثابت الوجود الذي لا شك فيه."},
-            {name: "الوكيل", meaning: "المكفول به تدبير أمور الخلق."},
-            {name: "القوي", meaning: "ذو القدرة التامة التي لا يطالها عجز."},
-            {name: "المتين", meaning: "الشديد القوة الذي لا ينفد كيده."},
-            {name: "الولي", meaning: "الناصر والمعين لأوليائه المؤمنين."},
-            {name: "الحميد", meaning: "المستحق للحمد والثناء."},
-            {name: "المحصي", meaning: "الذي أحاط بكل شيء عدداً وإحصاءً."},
-            {name: "المبدئ", meaning: "المنشئ للأشياء ابتداءً."},
-            {name: "المعيد", meaning: "المعيد للخلق بعد فنائهم."},
-            {name: "المحيي", meaning: "الواهب للحياة والأرواح."},
-            {name: "المميت", meaning: "الذي يقبض الأرواح مقدراً للفناء."},
-            {name: "الحي", meaning: "الباقي بلا زوال المتصف بالحياة الدائمة."},
-            {name: "القيوم", meaning: "القائم بنفسه المقيم لغيره تدبيراً وحفظاً."},
-            {name: "الواجد", meaning: "الغني الذي لا يفتقر لشيء وغير العاجز."},
-            {name: "الماجد", meaning: "الكريم الواسع المجد والفضل."},
-            {name: "الواحد", meaning: "الفرد الذي لا شريك له في ذاته وصفاته."},
-            {name: "الصمد", meaning: "السيّد المقصود في الحوائج الدائم."},
-            {name: "القادر", meaning: "الذي يقدر على كل شيء لا يعجزه أمر."},
-            {name: "المقتدر", meaning: "تام القدرة والغلبة على الأمور."},
-            {name: "المقدم", meaning: "الذي يرفع ويقدم من يشاء بحكمته."},
-            {name: "المؤخر", meaning: "الذي يؤخر ويؤجل من يشاء بحكمته."},
-            {name: "الأول", meaning: "الذي ليس قبله شيء."},
-            {name: "الآخر", meaning: "الذي ليس بعده شيء."},
-            {name: "الظاهر", meaning: "العالي على كل شيء بآياته ودلائله."},
-            {name: "الباطن", meaning: "المحيط ببواطن الأشياء والخافي عن الأبصار."},
-            {name: "الوالي", meaning: "المالك والمتصرف المدبر للأمور."},
-            {name: "المتعالي", meaning: "المنزه عن صفات المخلوقين."},
-            {name: "البر", meaning: "الكثير الإحسان واللطف بعباده."},
-            {name: "التواب", meaning: "الذي يقبل التوبة عن عباده ويعفو عنهم."},
-            {name: "المنتقم", meaning: "المعاقب للظالمين المجرمين."},
-            {name: "العفو", meaning: "المحاو والمسامح لسيئات عباده."},
-            {name: "الرؤوف", meaning: "الشديد الرحمة واللطف بعباده."},
-            {name: "مالك الملك", meaning: "المتصرف بملكه كيف يشاء."},
-            {name: "ذو الجلال والإكرام", meaning: "صاحب العظمة والكبرياء والإفضال."},
-            {name: "المقسط", meaning: "العادل الذي يأخذ الحق للمظلوم."},
-            {name: "الجامع", meaning: "الذي يجمع الخلائق ليوم لا ريب فيه."},
-            {name: "الغني", meaning: "المتصف بالغنى التامة عن خلقه."},
-            {name: "المغني", meaning: "الذي يغني من يشاء من عباده."},
-            {name: "المانع", meaning: "الذي يمنع الضرر عن عباده حكمةً."},
-            {name: "الضار", meaning: "المقدر للضر بحكمته لحكم بالغة."},
-            {name: "النافع", meaning: "المقدر للخير والنفع لخلقه."},
-            {name: "النور", meaning: "المنور للسموات والأرض وهادي أهلها."},
-            {name: "الهادي", meaning: "المرشد لعباده لطريق الحق والصواب."},
-            {name: "البديع", meaning: "المبدع والمخترع للكون على غير مثال."},
-            {name: "الباقي", meaning: "الدائم الذي لا يفنى ولا يتغير."},
-            {name: "الوارث", meaning: "الباقي بعد فناء الخلق أجمعين."},
-            {name: "الرشيد", meaning: "المرشد للخلق إلى مصالحهم."},
-            {name: "الصبور", meaning: "الذي لا يعاجل العصاة بالعقوبة بل يمهلهم."}
-        ];
-
-        function loadAsmaAlHusna() {
-            const container = document.getElementById("asmaContainer");
-            let htmlContent = "";
-            asmaAlHusna.forEach((item, index) => {
-                htmlContent += `
-                    <div class="grid-item">
-                        <div class="grid-title">${index + 1}. ${item.name}</div>
-                        <div class="grid-desc">${item.meaning}</div>
-                    </div>
-                `;
-            });
-            container.innerHTML = htmlContent;
-        }
-
-        window.onload = function() {
-            loadAdhkarByTime();
-            loadDaily20Hadiths();
-            loadAsmaAlHusna();
-        };
-    </script>
-</body>
-</html>
+                        <div class="hadith-explan
