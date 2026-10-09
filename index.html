@@ -170,7 +170,6 @@
             border-right: 6px solid var(--secondary);
         }
         
-        /* ضبط الاتجاهات عند تفعيل اللغة الإنجليزية */
         html[dir="ltr"] .card {
             border-right: none;
             border-left: 6px solid var(--secondary);
@@ -775,6 +774,7 @@
             document.getElementById('hadithTag').innerText = t.hadithSec.tag;
             document.getElementById('hadithHeading').innerText = t.hadithSec.heading;
             document.getElementById('hadithMeta').innerText = t.hadithSec.meta;
+            loadDaily20Hadiths();
             
             // الأذكار
             document.getElementById('dhikrTag').innerText = t.dhikrSec.tag;
@@ -892,7 +892,7 @@
             { text: "«أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ...»", fadl: "شكر لنعمة الصباح والملك لله.", count: 1 },
             { text: "«اللَّهُمَّ أَنْتَ رَبِّي لا إلهَ إلا أنتَ خَلَقْتَنِي وأنا عَبْدُكَ...»", fadl: "سيد الاستغفار؛ من قاله موقناً فمات دخل الجنة.", count: 1 },
             { text: "«بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ في الأرْضِ وَلَا في السَّمَاءِ»", fadl: "لم يضره شيء في ذلك اليوم.", count: 3 },
-            { text: "«رَضِيتُ بِاللَّهِ رَبَّاً، وَبِالْإِسْلَامِ دِيناً، وَبُِمُحَمَّدٍ نَبِيّاً»", fadl: "كان حقاً على الله أن يرضيه.", count: 3 },
+            { text: "«رَضِيتُ بِاللَّهِ رَبَّاً، وَبِالْإِسْلَامِ دِيناً، وَبِمُحَمَّدٍ نَبِيّاً»", fadl: "كان حقاً على الله أن يرضيه.", count: 3 },
             { text: "«سُبْحَانَ اللَّهِ وَبِحَمْدِهِ»", fadl: "حطت خطاياه وإن كانت مثل زبد البحر.", count: 100 }
         ];
 
@@ -977,4 +977,4 @@
                 html += `
                     <div class="daily-hadith-box">
                         <div class="daily-hadith-text">${i + 1}. ${hadith.text}</div>
-                        <div class="hadith-explan
+                        <div class="hadith-explanation"><strong>${expla
